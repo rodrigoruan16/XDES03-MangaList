@@ -7,6 +7,7 @@ import Header from "./components/Header";
 
 import Mangas from "./pages/Mangas";
 import Login from "./pages/Login";
+import Register from "./pages/Register";
 
 const App = () => (
 	<BrowserRouter>
@@ -14,6 +15,7 @@ const App = () => (
 		<Routes>
 			<Route path="/" element={<Mangas />} />
 			<Route path="/login" element={<Login />} />
+			<Route path="/register" element={<Register />} />
 		</Routes>
 	</BrowserRouter>
 );

@@ -17,9 +17,13 @@ function Header() {
 				<Link className="nav-link" to="/favorites">
 					Favoritos
 				</Link>
-				<Link className="nav-link" to="/mangadex">
+				<a
+					className="nav-link"
+					target="_blank"
+					href="https://mangadex.org/"
+				>
 					Mangadex
-				</Link>
+				</a>
 			</div>
 
 			<Link id="user-container" to="/login">
