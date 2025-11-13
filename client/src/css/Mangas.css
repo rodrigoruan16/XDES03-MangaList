@@ -61,6 +61,9 @@
 .navigate-container input {
 	text-align: center;
 	width: 5vw;
+    background-color: white;
+    border: none;
+    border-radius: 0.25rem;
 }
 
 .navigate-container {

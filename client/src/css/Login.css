@@ -3,8 +3,8 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-    max-width: 1000px;
-    margin: 0 auto;
+	max-width: 1000px;
+	margin: 0 auto;
 }
 
 .input-section {
@@ -33,26 +33,30 @@
 	background-color: #3d414a;
 	padding: 10px 0;
 	width: 100%;
-	border: none;
+	border: 2px solid #21232800;
 	border-radius: 0.25rem;
-    color: white;
-    padding-left: 5px;
+	color: white;
+	padding-left: 5px;
+}
+
+.login-form input:focus {
+	border: 2px solid #a53bd9;
 }
 
 .login-form button {
 	margin-top: 30px;
-    padding: 7px 0;
-    border-radius: 0.25rem;
-    border: none;
-    cursor: pointer;
-    color: white;
-    background-color: #a53bd9;
-    transition: 0.3;
+	padding: 10px 0;
+	border-radius: 0.25rem;
+	border: none;
+	cursor: pointer;
+	color: white;
+	background-color: #a53bd9;
+	transition: 0.3;
 }
 
 .login-form button:hover {
-    background-color: #b130f2;
-    transition: 0.5;
+	background-color: #ad39e7;
+	transition: 0.5;
 }
 
 .login-form {
@@ -65,33 +69,44 @@
 	padding: 8px 0;
 	text-align: center;
 	color: white;
+	font-size: 14px;
 }
 
 .login-container {
-    width: 60%;
+	width: 60%;
 }
 
 .forgot-password {
-    margin-top: 8px;
+	margin-top: 8px;
+	font-size: 14px;
 }
 
 .forgot-password-click {
-    color: #a53bd9;
-    cursor: pointer;
+	color: #a53bd9;
+	cursor: pointer;
 }
 
 .forgot-password-click:hover {
-    color: #b130f2;
+	color: #c145ff;
 }
 
 .error-message {
-    color: rgb(237, 0, 0);
-    margin-top: 10px;
-    text-align: center;
+	color: rgb(237, 0, 0);
+	margin-top: 20px;
+	text-align: center;
+	font-size: 12px;
+}
+
+.register-link {
+	color: #a53bd9;
+}
+
+.register-link:hover {
+	color: #c145ff;
 }
 
 @media screen and (max-width: 600px) {
 	.login-container {
-        width: 90%;
-    }
+		width: 90%;
+	}
 }

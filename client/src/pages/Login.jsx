@@ -11,9 +11,9 @@ function Login() {
 		e.preventDefault();
 
 		if (!email || !password) {
-            setErrorMessage("Por favor, preencha seu e-mail e senha!");
-            return;
-        };
+			setErrorMessage("Por favor, preencha seu e-mail e senha!");
+			return;
+		}
 	}
 
 	return (
@@ -26,17 +26,27 @@ function Login() {
 						onSubmit={(e) => submitLogin(e)}
 					>
 						<label for="email">E-mail</label>
-						<input id="email" type="email"></input>
+						<input
+							id="email"
+							type="email"
+							onChange={(e) => setEmail(e.target.value)}
+						></input>
 
 						<label for="password">Senha</label>
-						<input id="password" type="password"></input>
+						<input
+							id="password"
+							type="password"
+							onChange={(e) => setPassword(e.target.value)}
+						></input>
 
 						<p className="forgot-password">
 							Esqueceu a senha?{" "}
 							<span
 								className="forgot-password-click"
 								onClick={() =>
-									alert("Entre em contato com o Admin!")
+									alert(
+										"Entre em contato com o administrador!"
+									)
 								}
 							>
 								Clique aqui
@@ -49,7 +59,10 @@ function Login() {
 					</form>
 				</div>
 				<div className="section-registrar">
-					<Link className="nav-link">Registrar</Link>
+					<span>Novo usuário? </span>
+					<Link className="register-link" to="/register">
+						Registrar
+					</Link>
 				</div>
 			</div>
 		</div>
