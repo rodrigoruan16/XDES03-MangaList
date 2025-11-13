@@ -1,0 +1,36 @@
+header {
+	background-color: rgb(25, 26, 28);
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+	border-bottom: 2px solid #a53bd9;
+    position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: 2;
+}
+
+.nav-link {
+	color: white;
+	transition: 0.3s;
+}
+
+.nav-link:hover {
+	color: #a53bd9;
+	transition: 0.5s;
+}
+
+#links-container {
+	display: flex;
+	justify-content: space-around;
+	gap: 3vw;
+}
+
+#logo-container img,
+#user-container img {
+	width: 40px;
+	height: auto;
+	margin: 10px 0;
+	cursor: pointer;
+}

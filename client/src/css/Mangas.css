@@ -1,0 +1,86 @@
+.mangas-container {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+	justify-content: center;
+}
+
+.mangas-section {
+	padding-top: 80px;
+	max-width: 1600px;
+	margin: 0 auto;
+}
+
+.arrow-button {
+	background-color: none;
+	border: none;
+}
+
+#search-anime-bar {
+	display: block;
+	width: 100%;
+	background-color: #2c2c2c;
+	border: none;
+	color: white;
+	padding-left: 5px;
+	margin-right: 5px;
+	border-radius: 0.25rem;
+}
+
+#search-anime-bar:focus {
+	outline: 1px solid #a53bd9;
+}
+
+.search-bar-container {
+	display: flex;
+	flex-grow: 1;
+	margin: 0 2px 10px 2px;
+}
+
+#loading-msg {
+    color: white;
+}
+
+.search-bar-container button {
+	background-color: #a53bd9;
+	border: none;
+	display: flex;
+	border-radius: 0.25rem;
+	padding: 5px;
+	cursor: pointer;
+}
+
+.search-bar-container button:hover {
+	background-color: #7b32a0;
+}
+
+.search-bar-container button img {
+	width: 30px;
+}
+
+.navigate-container input {
+	text-align: center;
+	width: 5vw;
+}
+
+.navigate-container {
+	display: flex;
+	padding: 10px 0;
+	justify-content: center;
+	gap: 10px;
+}
+
+.navigate-container button {
+	cursor: pointer;
+	background-color: #191a1c;
+	padding: 5px;
+	border-radius: 5px;
+}
+
+.navigate-container button:hover {
+	background-color: #2c2c2c;
+}
+
+.navigate-container button img {
+	width: 30px;
+}

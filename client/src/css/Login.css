@@ -1,0 +1,97 @@
+.login-body {
+	height: 75vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.input-section {
+	margin: 0 auto;
+	margin-top: 80px;
+	color: white;
+	background-color: #212328;
+	padding: 20px;
+	border-top: 4px solid #a53bd9;
+	border-radius: 0.25rem;
+}
+
+.input-section h1 {
+	font-size: 20px;
+	text-align: center;
+}
+
+.login-form label {
+	margin-top: 10px;
+	font-size: 12px;
+	margin-bottom: 1px;
+}
+
+.login-form input {
+	display: block;
+	background-color: #3d414a;
+	padding: 10px 0;
+	width: 100%;
+	border: none;
+	border-radius: 0.25rem;
+    color: white;
+    padding-left: 5px;
+}
+
+.login-form button {
+	margin-top: 30px;
+    padding: 7px 0;
+    border-radius: 0.25rem;
+    border: none;
+    cursor: pointer;
+    color: white;
+    background-color: #a53bd9;
+    transition: 0.3;
+}
+
+.login-form button:hover {
+    background-color: #b130f2;
+    transition: 0.5;
+}
+
+.login-form {
+	display: flex;
+	flex-direction: column;
+}
+
+.section-registrar {
+	background-color: #2e2f37;
+	padding: 8px 0;
+	text-align: center;
+	color: white;
+}
+
+.login-container {
+    width: 60%;
+}
+
+.forgot-password {
+    margin-top: 8px;
+}
+
+.forgot-password-click {
+    color: #a53bd9;
+    cursor: pointer;
+}
+
+.forgot-password-click:hover {
+    color: #b130f2;
+}
+
+.error-message {
+    color: rgb(237, 0, 0);
+    margin-top: 10px;
+    text-align: center;
+}
+
+@media screen and (max-width: 600px) {
+	.login-container {
+        width: 90%;
+    }
+}
