@@ -9,6 +9,16 @@ function capitalize(word) {
 }
 
 function MangaCard({ attributes }) {
+	const [favorited, setFavorited] = React.useState(false);
+
+	function addToFavorites() {
+		// verifica se está logado primeiro!
+
+		// faz a requisição e seta como favorito ou remove dos favoritos
+
+		setFavorited(!favorited); // caso a requisição colocou como favorito
+	}
+
 	return (
 		<div className="manga-card">
 			<div className="manga-card-img-container">
@@ -18,9 +28,21 @@ function MangaCard({ attributes }) {
 			</div>
 
 			<div className="manga-attributes">
-				<p className="manga-title">
-					{Object.values(attributes.title)[0]}
-				</p>
+				<div className="title-container">
+					<p className="manga-title">
+						{Object.values(attributes.title)[0]}
+					</p>
+
+					<span onClick={addToFavorites} className="favorite-span">
+						<img
+							src={
+								favorited
+									? "https://img.icons8.com/?size=100&id=10287&format=png&color=A53BD9"
+									: "https://img.icons8.com/?size=100&id=581&format=png&color=A53BD9"
+							}
+						/>
+					</span>
+				</div>
 				<div className="manga-info">
 					<p>
 						<img

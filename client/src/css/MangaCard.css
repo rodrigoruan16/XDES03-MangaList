@@ -44,6 +44,7 @@
 .manga-desc {
 	margin-top: 10px;
 	font-size: 12px;
+	word-break: break-all;
 }
 
 .manga-card-status {
@@ -52,10 +53,23 @@
 	padding: 0 5px;
 }
 
+.title-container {
+	display: flex;
+	justify-content: space-between;
+}
+
 .ongoing-status,
 .hiatus-status,
 .completed-status {
 	margin-right: 5px;
+}
+
+.favorite-span {
+	cursor: pointer;
+}
+
+.favorite-span img {
+	width: 20px;
 }
 
 .ongoing-status {
@@ -71,15 +85,15 @@
 }
 
 .tags-container {
-    display: flex;
-    flex-wrap: wrap;
-    margin-top: 10px;
+	display: flex;
+	flex-wrap: wrap;
+	margin-top: 10px;
 }
 
 .tags-container p {
-    margin-right: 5px;
-    font-size: 10px;
-    font-weight: bold;
+	margin-right: 5px;
+	font-size: 10px;
+	font-weight: bold;
 }
 
 @media screen and (max-width: 820px) {
