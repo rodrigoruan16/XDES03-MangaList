@@ -7,6 +7,7 @@ function create(req, res) {
 
 	if (response.error) {
 		const { code, error } = response;
+		console.log(error);
 		return res.status(code).json({ error });
 	}
 

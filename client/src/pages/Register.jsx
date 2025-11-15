@@ -1,34 +1,38 @@
 import React from "react";
 import axios from "axios";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 
 import "../css/Register.css";
 
 import { RegisterSchema } from "../schemas/RegisterSchema";
 
 function Register() {
+	const navigate = useNavigate();
 	const [username, setUsername] = React.useState("");
 	const [email, setEmail] = React.useState("");
 	const [password, setPassword] = React.useState("");
 	const [confirmPassword, setConfirmPassword] = React.useState("");
 	const [errorMessage, setErrorMessage] = React.useState("");
 
-	function submitLogin(e) {
+	async function submitLogin(e) {
 		e.preventDefault();
 
 		const dataToRegister = { username, email, password, confirmPassword };
 
-		RegisterSchema.validate(dataToRegister)
-			.then(() => {
-				axios({
-					url: "http://localhost:3001/user/create",
-					method: "POST",
-					data: dataToRegister,
-				}).then();
-			})
-			.catch((err) => {
-				setErrorMessage(err.message);
+		try {
+			await RegisterSchema.validate(dataToRegister);
+
+			const response = await axios({
+				url: "http://localhost:3001/user/create",
+				method: "POST",
+				data: dataToRegister,
 			});
+
+			if (response.status == 200) navigate("/login");
+		} catch (err) {
+			const serverErrorMessage = err?.response?.data?.error;
+			setErrorMessage(serverErrorMessage || err.message);
+		}
 	}
 
 	return (

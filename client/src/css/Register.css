@@ -3,7 +3,8 @@
 }
 
 #return-to-login-page {
-    margin-top: 10px;
+	display: inline-block;
+	margin-top: 10px;
 	color: #ad39e7;
 }
 
