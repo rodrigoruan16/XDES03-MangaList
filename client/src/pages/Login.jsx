@@ -37,6 +37,7 @@ function Login() {
 						<input
 							id="password"
 							type="password"
+							minLength="4"
 							required
 							onChange={(e) => setPassword(e.target.value)}
 						></input>

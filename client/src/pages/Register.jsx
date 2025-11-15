@@ -12,10 +12,12 @@ function Register() {
 	function submitLogin(e) {
 		e.preventDefault();
 
-		if (!email || !password) {
-			setErrorMessage("Por favor, preencha seu e-mail e senha!");
+		if (!email || !password || !confirmPassword || !username) {
+			setErrorMessage("Por favor, preencha todos os campos obrigatórios.");
 			return;
 		}
+
+		
 	}
 
 	return (
@@ -55,6 +57,7 @@ function Register() {
 							id="password"
 							type="password"
 							required
+							minLength="4"
 							onChange={(e) => setPassword(e.target.value)}
 						></input>
 
@@ -66,6 +69,7 @@ function Register() {
 							id="confirmPassword"
 							type="password"
 							required
+							minLength="4"
 							onChange={(e) => setConfirmPassword(e.target.value)}
 						></input>
 
