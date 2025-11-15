@@ -25,7 +25,7 @@ function login(req, res) {
 
 	const { token } = response;
 
-	res.cookie("token", token, { httpOnly: true, secure: true });
+	res.cookie("token", token, { httpOnly: true });
 	res.status(200).json({ message: "Usuário logado com sucesso" });
 }
 

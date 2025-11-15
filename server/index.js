@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const cookieParser = require("cookie-parser");
 require("dotenv").config({ path: `${__dirname}/.env` }); // Permite acesso ao .env
 
 const app = express();
@@ -7,9 +8,11 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 const UserController = require("./controllers/userController");
+const AuthMiddleware = require("./middlewares/authMiddleware");
 
 app.use(express.json()); // Permite receber dados no formato JSON nas requisições
 app.use(cors()); // Permite requisições do client-side
+app.use(cookieParser()); // Permite ler token
 
 // Verificação se o servidor está no ar
 app.get("/", (_req, res) => {
