@@ -28,7 +28,7 @@ function Register() {
 				data: dataToRegister,
 			});
 
-			if (response.status == 200) navigate("/login");
+			if (response.status === 200) navigate("/login");
 		} catch (err) {
 			const serverErrorMessage = err?.response?.data?.error;
 			setErrorMessage(serverErrorMessage || err.message);
@@ -39,11 +39,8 @@ function Register() {
 		<div className="form-body">
 			<div className="form-container">
 				<div className="input-section">
-					<h1>Entrar em sua conta</h1>
-					<form
-						className="form"
-						onSubmit={(e) => submitRegister(e)}
-					>
+					<h1>Registrar sua conta</h1>
+					<form className="form" onSubmit={(e) => submitRegister(e)}>
 						<label for="username">
 							Nome de usuário{" "}
 							<span className="required-field">*</span>
@@ -88,7 +85,10 @@ function Register() {
 					</form>
 
 					<Link id="return-to-login-page" to="/login">
-						<img src="https://img.icons8.com/?size=100&id=3483&format=png&color=ad39e7"></img>
+						<img
+							alt="icone retorno login"
+							src="https://img.icons8.com/?size=100&id=3483&format=png&color=ad39e7"
+						></img>
 						Volta à página de login
 					</Link>
 				</div>

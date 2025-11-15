@@ -1,23 +1,36 @@
 import React from "react";
+import axios from "axios";
+
 import "../css/Forms.css";
-import { Link } from "react-router";
+
+import { Link, useNavigate } from "react-router";
 import { LoginSchema } from "../schemas/LoginSchema";
 
 function Login() {
+	const navigate = useNavigate();
 	const [email, setEmail] = React.useState("");
 	const [password, setPassword] = React.useState("");
 	const [errorMessage, setErrorMessage] = React.useState("");
 
-	function submitLogin(e) {
+	async function submitLogin(e) {
 		e.preventDefault();
 
-		LoginSchema.validate({ email, password })
-			.then(() => {
-				// requisição para logar
-			})
-			.catch((err) => {
-				setErrorMessage(err.message);
+		const dataToLogin = { email, password };
+
+		try {
+			await LoginSchema.validate(dataToLogin);
+
+			const response = await axios({
+				url: "http://localhost:3001/user/login",
+				method: "POST",
+				data: dataToLogin,
 			});
+
+			if (response.status === 200) navigate("/favorites");
+		} catch (err) {
+			const serverErrorMessage = err?.response?.data?.error;
+			setErrorMessage(serverErrorMessage || err.message);
+		}
 	}
 
 	return (
@@ -25,10 +38,7 @@ function Login() {
 			<div className="form-container">
 				<div className="input-section">
 					<h1>Entrar em sua conta</h1>
-					<form
-						className="form"
-						onSubmit={(e) => submitLogin(e)}
-					>
+					<form className="form" onSubmit={(e) => submitLogin(e)}>
 						<label for="email">E-mail</label>
 						<input
 							id="email"

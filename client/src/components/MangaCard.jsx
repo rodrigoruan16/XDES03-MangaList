@@ -23,6 +23,7 @@ function MangaCard({ attributes }) {
 		<div className="manga-card">
 			<div className="manga-card-img-container">
 				<img
+					alt="capa mangá"
 					src={`https://uploads.mangadex.org/covers/${attributes.id}/${attributes.cover}.256.jpg`}
 				></img>
 			</div>
@@ -35,6 +36,7 @@ function MangaCard({ attributes }) {
 
 					<span onClick={addToFavorites} className="favorite-span">
 						<img
+							alt="icone de favoritar"
 							src={
 								favorited
 									? "https://img.icons8.com/?size=100&id=10287&format=png&color=A53BD9"
@@ -46,6 +48,7 @@ function MangaCard({ attributes }) {
 				<div className="manga-info">
 					<p>
 						<img
+							alt="icone do ano de lançamento do mangá"
 							id="calendar"
 							src="https://img.icons8.com/?size=100&id=10053&format=png&color=ffffff"
 						></img>
