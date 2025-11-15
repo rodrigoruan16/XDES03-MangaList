@@ -1,6 +1,8 @@
 import React from "react";
 import axios from "axios";
 
+import Header from "../components/Header";
+
 import "../css/Forms.css";
 
 import { Link, useNavigate } from "react-router";
@@ -26,7 +28,12 @@ function Login() {
 				data: dataToLogin,
 			});
 
-			if (response.status === 200) navigate("/favorites");
+			if (response.status === 200) {
+				navigate("/favorites");
+				sessionStorage.setItem("user_logged", true);
+				const user_info = JSON.stringify(response.data.user);
+				sessionStorage.setItem("user_info", user_info);
+			}
 		} catch (err) {
 			const serverErrorMessage = err?.response?.data?.error;
 			setErrorMessage(serverErrorMessage || err.message);
@@ -34,52 +41,55 @@ function Login() {
 	}
 
 	return (
-		<div className="form-body">
-			<div className="form-container">
-				<div className="input-section">
-					<h1>Entrar em sua conta</h1>
-					<form className="form" onSubmit={(e) => submitLogin(e)}>
-						<label for="email">E-mail</label>
-						<input
-							id="email"
-							type="email"
-							onChange={(e) => setEmail(e.target.value)}
-						></input>
+		<>
+			<Header />
+			<div className="form-body">
+				<div className="form-container">
+					<div className="input-section">
+						<h1>Entrar em sua conta</h1>
+						<form className="form" onSubmit={(e) => submitLogin(e)}>
+							<label for="email">E-mail</label>
+							<input
+								id="email"
+								type="email"
+								onChange={(e) => setEmail(e.target.value)}
+							></input>
 
-						<label for="password">Senha</label>
-						<input
-							id="password"
-							type="password"
-							onChange={(e) => setPassword(e.target.value)}
-						></input>
+							<label for="password">Senha</label>
+							<input
+								id="password"
+								type="password"
+								onChange={(e) => setPassword(e.target.value)}
+							></input>
 
-						<p className="forgot-password">
-							Esqueceu a senha?{" "}
-							<span
-								className="forgot-password-click"
-								onClick={() =>
-									alert(
-										"Entre em contato com o administrador!"
-									)
-								}
-							>
-								Clique aqui
-							</span>
-						</p>
+							<p className="forgot-password">
+								Esqueceu a senha?{" "}
+								<span
+									className="forgot-password-click"
+									onClick={() =>
+										alert(
+											"Entre em contato com o administrador!"
+										)
+									}
+								>
+									Clique aqui
+								</span>
+							</p>
 
-						<button className="login-button">Entrar</button>
+							<button className="login-button">Entrar</button>
 
-						<p className="error-message">{errorMessage}</p>
-					</form>
-				</div>
-				<div className="section-registrar">
-					<span>Novo usuário? </span>
-					<Link className="register-link" to="/register">
-						Registrar
-					</Link>
+							<p className="error-message">{errorMessage}</p>
+						</form>
+					</div>
+					<div className="section-registrar">
+						<span>Novo usuário? </span>
+						<Link className="register-link" to="/register">
+							Registrar
+						</Link>
+					</div>
 				</div>
 			</div>
-		</div>
+		</>
 	);
 }
 

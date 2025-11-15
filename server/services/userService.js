@@ -36,11 +36,11 @@ function login(email, password) {
 		return error;
 	}
 
-	const { id } = user;
+	const { id, username, avatar_url } = user;
 
 	const token = jwt.sign({ user: { id, email } }, SECRET);
 
-	return { token, id };
+	return { token, id, username, avatar_url };
 }
 
 module.exports = {

@@ -23,10 +23,13 @@ function login(req, res) {
 		return res.status(code).json({ error });
 	}
 
-	const { token } = response;
+	const { token, id, username, avatar_url } = response;
 
 	res.cookie("token", token, { httpOnly: true });
-	res.status(200).json({ message: "Usuário logado com sucesso" });
+	res.status(200).json({
+		message: "Usuário logado com sucesso",
+		user: { id, username, avatar_url },
+	});
 }
 
 module.exports = { create, login };

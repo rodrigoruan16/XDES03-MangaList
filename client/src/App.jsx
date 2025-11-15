@@ -12,7 +12,6 @@ import Favorites from "./pages/Favorites";
 
 const App = () => (
 	<BrowserRouter>
-		<Header />
 		<Routes>
 			<Route path="/" element={<Mangas />} />
 			<Route path="/login" element={<Login />} />

@@ -13,7 +13,8 @@ function create(username, email, password) {
 			username,
 			email,
 			password,
-			avatar_url: "",
+			avatar_url:
+				"https://cdn.noitatnemucod.net/avatar/100x100/zoro_normal/av-zz-10.jpeg",
 			active: true,
 			created_at: new Date().toISOString(),
 			updated_at: new Date().toISOString(),

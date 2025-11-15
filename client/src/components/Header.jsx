@@ -4,6 +4,9 @@ import { Link } from "react-router";
 import "../css/Header.css";
 
 function Header() {
+	const user_info = JSON.parse(sessionStorage.getItem("user_info"));
+	const user_logged = sessionStorage.getItem("user_logged");
+
 	return (
 		<header>
 			<Link id="logo-container" to="/">
@@ -26,9 +29,21 @@ function Header() {
 				</a>
 			</div>
 
-			<Link id="user-container" to="/login">
-				<img src="https://img.icons8.com/?size=100&id=15263&format=png&color=ffffff"></img>
-			</Link>
+			<div className="user-info">
+				<Link
+					id="user-container"
+					to={user_logged ? "/login" : "/login"}
+				>
+					<img
+						className="user-avatar"
+						src={
+							user_logged
+								? user_info.avatar_url
+								: "https://img.icons8.com/?size=100&id=15263&format=png&color=ffffff"
+						}
+					/>
+				</Link>
+			</div>
 		</header>
 	);
 }
