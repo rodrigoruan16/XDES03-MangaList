@@ -1,5 +1,5 @@
 import React from "react";
-import "../css/Login.css";
+import "../css/Forms.css";
 import { Link } from "react-router";
 import { LoginSchema } from "../schemas/LoginSchema";
 
@@ -21,12 +21,12 @@ function Login() {
 	}
 
 	return (
-		<div className="login-body">
-			<div className="login-container">
+		<div className="form-body">
+			<div className="form-container">
 				<div className="input-section">
 					<h1>Entrar em sua conta</h1>
 					<form
-						className="login-form"
+						className="form"
 						onSubmit={(e) => submitLogin(e)}
 					>
 						<label for="email">E-mail</label>

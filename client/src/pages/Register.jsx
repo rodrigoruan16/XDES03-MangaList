@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router";
 
-import "../css/Register.css";
+import "../css/Forms.css";
 
 import { RegisterSchema } from "../schemas/RegisterSchema";
 
@@ -14,7 +14,7 @@ function Register() {
 	const [confirmPassword, setConfirmPassword] = React.useState("");
 	const [errorMessage, setErrorMessage] = React.useState("");
 
-	async function submitLogin(e) {
+	async function submitRegister(e) {
 		e.preventDefault();
 
 		const dataToRegister = { username, email, password, confirmPassword };
@@ -36,13 +36,13 @@ function Register() {
 	}
 
 	return (
-		<div className="login-body">
-			<div className="login-container">
+		<div className="form-body">
+			<div className="form-container">
 				<div className="input-section">
 					<h1>Entrar em sua conta</h1>
 					<form
-						className="login-form"
-						onSubmit={(e) => submitLogin(e)}
+						className="form"
+						onSubmit={(e) => submitRegister(e)}
 					>
 						<label for="username">
 							Nome de usuário{" "}
