@@ -1,6 +1,7 @@
 import React from "react";
 import "../css/Register.css";
 import { Link } from "react-router";
+import { RegisterSchema } from "../schemas/RegisterSchema";
 
 function Register() {
 	const [username, setUsername] = React.useState("");
@@ -12,12 +13,11 @@ function Register() {
 	function submitLogin(e) {
 		e.preventDefault();
 
-		if (!email || !password || !confirmPassword || !username) {
-			setErrorMessage("Por favor, preencha todos os campos obrigatórios.");
-			return;
-		}
-
-		
+		RegisterSchema.validate({ username, email, password, confirmPassword })
+			.then(() => {})
+			.catch((err) => {
+				setErrorMessage(err.message);
+			});
 	}
 
 	return (
@@ -36,7 +36,6 @@ function Register() {
 						<input
 							id="username"
 							type="text"
-							required
 							onChange={(e) => setUsername(e.target.value)}
 						></input>
 
@@ -46,7 +45,6 @@ function Register() {
 						<input
 							id="email"
 							type="email"
-							required
 							onChange={(e) => setEmail(e.target.value)}
 						></input>
 
@@ -56,8 +54,6 @@ function Register() {
 						<input
 							id="password"
 							type="password"
-							required
-							minLength="4"
 							onChange={(e) => setPassword(e.target.value)}
 						></input>
 
@@ -68,8 +64,6 @@ function Register() {
 						<input
 							id="confirmPassword"
 							type="password"
-							required
-							minLength="4"
 							onChange={(e) => setConfirmPassword(e.target.value)}
 						></input>
 

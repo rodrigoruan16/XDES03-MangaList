@@ -1,6 +1,7 @@
 import React from "react";
 import "../css/Login.css";
 import { Link } from "react-router";
+import { LoginSchema } from "../schemas/LoginSchema";
 
 function Login() {
 	const [email, setEmail] = React.useState("");
@@ -10,10 +11,13 @@ function Login() {
 	function submitLogin(e) {
 		e.preventDefault();
 
-		if (!email || !password) {
-			setErrorMessage("Por favor, preencha seu e-mail e senha!");
-			return;
-		}
+		LoginSchema.validate({ email, password })
+			.then(() => {
+				// requisição para logar
+			})
+			.catch((err) => {
+				setErrorMessage(err.message);
+			});
 	}
 
 	return (
@@ -29,7 +33,6 @@ function Login() {
 						<input
 							id="email"
 							type="email"
-							required
 							onChange={(e) => setEmail(e.target.value)}
 						></input>
 
@@ -37,8 +40,6 @@ function Login() {
 						<input
 							id="password"
 							type="password"
-							minLength="4"
-							required
 							onChange={(e) => setPassword(e.target.value)}
 						></input>
 
