@@ -1,17 +1,24 @@
-function userCreate(req, res) {
-	const { username, email, password, confirmPassword } = req.body;
+const UserService = require("../services/userService.js");
 
-	console.log(req.body);
+function create(req, res) {
+	const { email, username, password } = req.body;
+
+	const response = UserService.create(username, email, password);
+
+	if (response.error) {
+		const { code, error } = response;
+		return res.status(code).json({ error });
+	}
+
+	res.status(200).json({ message: "Usuário criado com sucesso." });
+}
+
+function login(req, res) {
+	const { email, password } = req.body;
+
+	//const response = await UserService.login();
 
 	res.status(200).send("OK");
 }
 
-function userLogin(req, res) {
-	const { username, email, password, confirmPassword } = req.body;
-
-	console.log(req.body);
-
-	res.status(200).send("OK");
-}
-
-module.exports = { userCreate, userLogin };
+module.exports = { create, login };

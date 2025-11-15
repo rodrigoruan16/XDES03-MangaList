@@ -4,7 +4,7 @@ const cors = require("cors");
 const app = express();
 const port = 3001;
 
-const { userCreate, userLogin } = require("./controllers/userController");
+const UserController = require("./controllers/userController");
 
 app.use(express.json()); // Permite receber dados no formato JSON nas requisições
 app.use(cors()); // Permite requisições do client-side
@@ -19,5 +19,5 @@ app.listen(port, () => {
 });
 
 // Rotas de usuário
-app.post("/user/create", userCreate);
-app.post("/user/login", userLogin);
+app.post("/user/create", UserController.create);
+app.post("/user/login", UserController.login);
