@@ -1,6 +1,9 @@
 import React from "react";
-import "../css/Register.css";
+import axios from "axios";
 import { Link } from "react-router";
+
+import "../css/Register.css";
+
 import { RegisterSchema } from "../schemas/RegisterSchema";
 
 function Register() {
@@ -13,8 +16,16 @@ function Register() {
 	function submitLogin(e) {
 		e.preventDefault();
 
-		RegisterSchema.validate({ username, email, password, confirmPassword })
-			.then(() => {})
+		const dataToRegister = { username, email, password, confirmPassword };
+
+		RegisterSchema.validate(dataToRegister)
+			.then(() => {
+				axios({
+					url: "http://localhost:3001/user/create",
+					method: "POST",
+					data: dataToRegister,
+				}).then();
+			})
 			.catch((err) => {
 				setErrorMessage(err.message);
 			});
