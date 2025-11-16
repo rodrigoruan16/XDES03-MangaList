@@ -32,7 +32,7 @@ function Header() {
 			<div className="user-info">
 				<Link
 					id="user-container"
-					to={user_logged ? "/login" : "/login"}
+					to={user_logged ? "/profile" : "/login"}
 				>
 					<img
 						className="user-avatar"
