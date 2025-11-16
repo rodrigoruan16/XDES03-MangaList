@@ -18,6 +18,21 @@
 	align-items: center;
 }
 
+.pfp-info-container div {
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+}
+
+.info {
+	font-weight: bold;
+}
+
+.pfp-container input {
+	width: 80%;
+	margin-bottom: 20px;
+}
+
 .profile-body {
 	display: flex;
 	justify-content: center;
@@ -33,11 +48,27 @@
 	margin-bottom: 30px;
 }
 
+#buttons-container {
+	display: flex;
+	justify-content: center;
+    gap: 20px;
+}
+
 .logout-button {
 	display: block;
 	background-color: red;
 	color: white;
-	margin: 0 auto;
+	margin-top: 30px;
+	padding: 3px 20px;
+	border: none;
+	border-radius: 0.25rem;
+	cursor: pointer;
+}
+
+.edit-button {
+	display: block;
+	background-color: #a53bd9;
+	color: white;
 	margin-top: 30px;
 	padding: 3px 20px;
 	border: none;

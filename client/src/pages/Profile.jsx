@@ -7,10 +7,12 @@ import { useNavigate } from "react-router";
 
 function Profile() {
 	const navigate = useNavigate();
-	const [userId, setUserId] = React.useState(null);
-	const [userAvatar, setUserAvatar] = React.useState(null);
-	const [userName, setUserName] = React.useState(null);
+	const [user, setUser] = React.useState({});
 	const [errorMessage, setErrorMessage] = React.useState("");
+	const [avatarUrl, setAvatarUrl] = React.useState("");
+	const [userName, setUserName] = React.useState("");
+	const [email, setEmail] = React.useState("");
+	const [editMode, setEditMode] = React.useState(false);
 
 	React.useEffect(() => {
 		if (!sessionStorage.getItem("user_logged")) {
@@ -22,19 +24,15 @@ function Profile() {
 			url: "http://localhost:3001/user/info",
 			withCredentials: true,
 		})
-			.then((data) => {
-				console.log(data);
+			.then(({ data }) => {
+				setUser(data.user);
+				setAvatarUrl(data.user.avatar_url);
+				setUserName(data.user.username);
+				setEmail(data.user.email);
 			})
-			.catch((err) => {
-				setErrorMessage(err.message);
+			.catch((_err) => {
+				return navigate("/login");
 			});
-
-		const { id, avatar_url, username } = JSON.parse(
-			sessionStorage.getItem("user_info")
-		);
-		setUserId(id);
-		setUserAvatar(avatar_url);
-		setUserName(username);
 	}, []);
 
 	async function deslogar() {
@@ -42,6 +40,7 @@ function Profile() {
 			const response = await axios({
 				method: "POST",
 				url: "http://localhost:3001/user/logout",
+				withCredentials: true,
 			});
 
 			if (response.status === 200) {
@@ -53,34 +52,84 @@ function Profile() {
 		}
 	}
 
+	async function atualizarPerfil() {
+		setEditMode(false);
+	}
+
 	return (
 		<>
 			<Header />
 			<div className="profile-body">
 				<div className="profile-container">
 					<div className="pfp-container">
-						<img src={userAvatar} />
-						<div>
-							<input
-								onChange={(e) => setUserAvatar(e.target.value)}
-								defaultValue={userAvatar}
-							/>
-						</div>
+						<img src={user.avatar_url} />
+						<input
+							className="pfp-edit-input"
+							disabled={!editMode}
+							onChange={(e) => setAvatarUrl(e.target.value)}
+							defaultValue={user.avatar_url}
+						/>
 					</div>
 
-					<div>
-						<section>
-							<p>ID do usuário</p>
-							<p>{userId}</p>
-						</section>
+					<div className="pfp-info-container">
+						<div>
+							<p>ID: </p>
+							<p className="info">{user.id}</p>
+						</div>
 
-						<p>Nome de usuário: {userName}</p>
+						<div>
+							<p>Nome de usuário: </p>
+							<input
+								className="pfp-edit-input"
+								onChange={(e) => setUserName(e.target.value)}
+								defaultValue={user.username}
+								disabled={!editMode}
+							/>
+						</div>
+
+						<div>
+							<p>E-mail:</p>
+							<input
+								onChange={(e) => setEmail(e.target.value)}
+								className="pfp-edit-input"
+								defaultValue={user.email}
+								disabled={!editMode}
+							/>
+						</div>
+
+						<div>
+							<p>Conta criada em: </p>
+							<p className="info">
+								{new Date(user.created_at).toLocaleString()}
+							</p>
+						</div>
+
+						<div>
+							<p>Conta atualizada em: </p>
+							<p className="info">
+								{new Date(user.updated_at).toLocaleString()}
+							</p>
+						</div>
 
 						<p className="error-message">{errorMessage}</p>
-
-						<button onClick={deslogar} className="logout-button">
-							Sair
-						</button>
+						<div id="buttons-container">
+							<button
+								onClick={deslogar}
+								className="logout-button"
+							>
+								Sair
+							</button>
+							<button
+								onClick={() => {
+									editMode
+										? atualizarPerfil()
+										: setEditMode(true);
+								}}
+								className="edit-button"
+							>
+								{editMode ? "Salvar" : "Editar"}
+							</button>
+						</div>
 					</div>
 				</div>
 			</div>

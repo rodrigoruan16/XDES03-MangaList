@@ -37,7 +37,7 @@ function Header() {
 					<img
 						className="user-avatar"
 						src={
-							user_logged
+							user_logged && user_info?.avatar_url
 								? user_info.avatar_url
 								: "https://img.icons8.com/?size=100&id=15263&format=png&color=ffffff"
 						}
