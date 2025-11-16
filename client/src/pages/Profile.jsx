@@ -1,14 +1,34 @@
 import React from "react";
+import axios from "axios";
 
 import "../css/Profile.css";
 import Header from "../components/Header";
+import { useNavigate } from "react-router";
 
 function Profile() {
+	const navigate = useNavigate();
 	const [userId, setUserId] = React.useState(null);
 	const [userAvatar, setUserAvatar] = React.useState(null);
 	const [userName, setUserName] = React.useState(null);
+	const [errorMessage, setErrorMessage] = React.useState("");
 
 	React.useEffect(() => {
+		if (!sessionStorage.getItem("user_logged")) {
+			return navigate("/login");
+		}
+
+		axios({
+			method: "GET",
+			url: "http://localhost:3001/user/info",
+			withCredentials: true,
+		})
+			.then((data) => {
+				console.log(data);
+			})
+			.catch((err) => {
+				setErrorMessage(err.message);
+			});
+
 		const { id, avatar_url, username } = JSON.parse(
 			sessionStorage.getItem("user_info")
 		);
@@ -17,7 +37,21 @@ function Profile() {
 		setUserName(username);
 	}, []);
 
-	function deslogar() {}
+	async function deslogar() {
+		try {
+			const response = await axios({
+				method: "POST",
+				url: "http://localhost:3001/user/logout",
+			});
+
+			if (response.status === 200) {
+				sessionStorage.clear();
+				navigate("/");
+			}
+		} catch (err) {
+			setErrorMessage(err.message);
+		}
+	}
 
 	return (
 		<>
@@ -42,7 +76,11 @@ function Profile() {
 
 						<p>Nome de usuário: {userName}</p>
 
-						<button className="logout-button">Sair</button>
+						<p className="error-message">{errorMessage}</p>
+
+						<button onClick={deslogar} className="logout-button">
+							Sair
+						</button>
 					</div>
 				</div>
 			</div>

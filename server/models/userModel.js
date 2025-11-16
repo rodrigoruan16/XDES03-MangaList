@@ -42,7 +42,20 @@ function findByEmail(email) {
 	}
 }
 
+function findById(id) {
+	try {
+		const data = JSON.parse(fs.readFileSync(DB_PATH, "utf-8"));
+
+		const user = data.find((user) => user.id == id);
+
+		return user;
+	} catch (err) {
+		return { code: 500, error: err.message };
+	}
+}
+
 module.exports = {
 	create,
 	findByEmail,
+	findById,
 };

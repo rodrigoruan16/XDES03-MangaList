@@ -43,7 +43,23 @@ function login(email, password) {
 	return { token, id, username, avatar_url };
 }
 
+function getInfo(id) {
+	const error = { code: 400, error: "Não foi possível fazer a requisição" };
+
+	const user = UserModel.findById(id);
+
+	if (!user || !user.active) {
+		return error;
+	}
+
+	delete user["password"];
+	delete user["active"];
+
+	return user;
+}
+
 module.exports = {
 	create,
 	login,
+	getInfo,
 };

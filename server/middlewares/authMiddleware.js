@@ -12,7 +12,7 @@ function AuthMiddleware(req, res, next) {
 
 	try {
 		const decoded = jwt.verify(token, SECRET);
-		console.log(decoded);
+		req.user = decoded;
 		next();
 	} catch (_err) {
 		return res.status(error.code).json({ error: error.message });

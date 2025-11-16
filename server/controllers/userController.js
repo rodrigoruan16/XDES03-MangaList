@@ -25,7 +25,10 @@ function login(req, res) {
 
 	const { token, id, username, avatar_url } = response;
 
-	res.cookie("token", token, { httpOnly: true });
+	res.cookie("token", token, {
+		httpOnly: true,
+		secure: false,
+	});
 	res.status(200).json({
 		message: "Usuário logado com sucesso",
 		user: { id, username, avatar_url },
@@ -33,8 +36,24 @@ function login(req, res) {
 }
 
 function logout(_req, res) {
-	res.clearCookie("token", { httpOnly: true });
+	res.clearCookie("token", { httpOnly: true, secure: false });
 	res.status(200).json({ message: "Usuário deslogado com sucesso" });
 }
 
-module.exports = { create, login, logout };
+function getInfo(req, res) {
+	const data = req.user;
+
+	const response = UserService.getInfo(data?.user?.id);
+
+	if (response.error) {
+		const { code, error } = response;
+		return res.status(code).json({ error });
+	}
+
+	res.status(200).json({
+		message: "Usuário logado com sucesso",
+		user: response,
+	});
+}
+
+module.exports = { create, login, logout, getInfo };

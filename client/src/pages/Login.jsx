@@ -26,6 +26,7 @@ function Login() {
 				url: "http://localhost:3001/user/login",
 				method: "POST",
 				data: dataToLogin,
+				withCredentials: true,
 			});
 
 			if (response.status === 200) {
