@@ -61,17 +61,24 @@ function Profile() {
 			<Header />
 			<div className="profile-body">
 				<div className="profile-container">
+					<img
+                        className="edit-icon"
+						src={
+							editMode
+								? "https://img.icons8.com/?size=100&id=152&format=png&color=ffffff"
+								: "https://img.icons8.com/?size=100&id=94&format=png&color=ff0000"
+						}
+					/>
 					<div className="pfp-container">
-						<img src={user.avatar_url} />
+						<img className="profile-picture" src={user.avatar_url} />
 						<input
-							className="pfp-edit-input"
 							disabled={!editMode}
 							onChange={(e) => setAvatarUrl(e.target.value)}
 							defaultValue={user.avatar_url}
 						/>
 					</div>
 
-					<div className="pfp-info-container">
+					<div className="pf-info-container">
 						<div>
 							<p>ID: </p>
 							<p className="info">{user.id}</p>
@@ -80,7 +87,6 @@ function Profile() {
 						<div>
 							<p>Nome de usuário: </p>
 							<input
-								className="pfp-edit-input"
 								onChange={(e) => setUserName(e.target.value)}
 								defaultValue={user.username}
 								disabled={!editMode}
@@ -91,7 +97,6 @@ function Profile() {
 							<p>E-mail:</p>
 							<input
 								onChange={(e) => setEmail(e.target.value)}
-								className="pfp-edit-input"
 								defaultValue={user.email}
 								disabled={!editMode}
 							/>
