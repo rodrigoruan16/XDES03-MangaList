@@ -26,3 +26,4 @@ app.listen(PORT, () => {
 // Rotas de usuário
 app.post("/user/create", UserController.create);
 app.post("/user/login", UserController.login);
+app.post("/user/deslogar", UserController.logout);

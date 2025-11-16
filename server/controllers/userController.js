@@ -32,4 +32,9 @@ function login(req, res) {
 	});
 }
 
-module.exports = { create, login };
+function logout(_req, res) {
+	res.clearCookie("token", { httpOnly: true });
+	res.status(200).json({ message: "Usuário deslogado com sucesso" });
+}
+
+module.exports = { create, login, logout };
