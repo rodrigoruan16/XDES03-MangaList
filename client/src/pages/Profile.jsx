@@ -5,13 +5,15 @@ import "../css/Profile.css";
 import Header from "../components/Header";
 import { useNavigate } from "react-router";
 
+import { ProfileSchema } from "../schemas/ProfileSchema";
+
 function Profile() {
 	const navigate = useNavigate();
 	const [user, setUser] = React.useState({});
-	const [errorMessage, setErrorMessage] = React.useState("");
-	const [avatarUrl, setAvatarUrl] = React.useState("");
-	const [userName, setUserName] = React.useState("");
-	const [email, setEmail] = React.useState("");
+	const [errorMessage, setErrorMessage] = React.useState(null);
+	const [avatarUrl, setAvatarUrl] = React.useState(null);
+	const [userName, setUserName] = React.useState(null);
+	const [email, setEmail] = React.useState(null);
 	const [editMode, setEditMode] = React.useState(false);
 
 	React.useEffect(() => {
@@ -53,6 +55,48 @@ function Profile() {
 	}
 
 	async function atualizarPerfil() {
+		try {
+			const dataToPatch = {
+				avatar_url: avatarUrl,
+				username: userName,
+				email,
+			};
+
+			await ProfileSchema.validate(dataToPatch);
+
+			const response = await axios({
+				url: "http://localhost:3001/user/edit",
+				method: "patch",
+				data: dataToPatch,
+				withCredentials: true,
+			});
+
+			if (response.status === 200) {
+				const {
+					id,
+					avatar_url,
+					email,
+					username,
+					updated_at,
+					created_at,
+				} = response.data;
+
+				sessionStorage.setItem(
+					"user_info",
+					JSON.stringify({ avatar_url, id, username })
+				);
+
+				setAvatarUrl(avatar_url);
+				setUserName(username);
+				setEmail(email);
+				setUser({ ...user, updated_at, created_at });
+				setErrorMessage("Perfil editado com sucesso.");
+			}
+		} catch (err) {
+			const serverErrorMessage = err?.response?.data?.error;
+			setErrorMessage(serverErrorMessage || err.message);
+		}
+
 		setEditMode(false);
 	}
 
@@ -62,7 +106,7 @@ function Profile() {
 			<div className="profile-body">
 				<div className="profile-container">
 					<img
-                        className="edit-icon"
+						className="edit-icon"
 						src={
 							editMode
 								? "https://img.icons8.com/?size=100&id=152&format=png&color=ffffff"
@@ -70,11 +114,11 @@ function Profile() {
 						}
 					/>
 					<div className="pfp-container">
-						<img className="profile-picture" src={user.avatar_url} />
+						<img className="profile-picture" src={avatarUrl} />
 						<input
 							disabled={!editMode}
 							onChange={(e) => setAvatarUrl(e.target.value)}
-							defaultValue={user.avatar_url}
+							defaultValue={avatarUrl}
 						/>
 					</div>
 
@@ -88,7 +132,7 @@ function Profile() {
 							<p>Nome de usuário: </p>
 							<input
 								onChange={(e) => setUserName(e.target.value)}
-								defaultValue={user.username}
+								defaultValue={userName}
 								disabled={!editMode}
 							/>
 						</div>
@@ -97,7 +141,7 @@ function Profile() {
 							<p>E-mail:</p>
 							<input
 								onChange={(e) => setEmail(e.target.value)}
-								defaultValue={user.email}
+								defaultValue={email}
 								disabled={!editMode}
 							/>
 						</div>

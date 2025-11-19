@@ -17,16 +17,13 @@ header {
 	align-items: center;
 }
 
-#username {
-	color: #A53BD9;
-}
-
 .user-info p {
 	margin-right: 10px;
 }
 
 .user-avatar {
 	border-radius: 100%;
+	margin: 0 auto;
 }
 
 .nav-link {

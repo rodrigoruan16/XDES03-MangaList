@@ -41,7 +41,7 @@ function logout(_req, res) {
 }
 
 function getInfo(req, res) {
-	const data = req.user;
+	const data = req.token;
 
 	const response = UserService.getInfo(data?.user?.id);
 
@@ -56,4 +56,25 @@ function getInfo(req, res) {
 	});
 }
 
-module.exports = { create, login, logout, getInfo };
+function editInfo(req, res) {
+	const data = req.body;
+	const user = req.token?.user;
+
+	const response = UserService.updateInfo(
+		user?.id,
+		data?.avatar_url,
+		data?.username,
+		data?.email
+	);
+
+	console.log(response);
+
+	if (response.error) {
+		const { code, error } = response;
+		return res.status(code).json({ error });
+	}
+
+	res.status(200).json(response);
+}
+
+module.exports = { create, login, logout, getInfo, editInfo };

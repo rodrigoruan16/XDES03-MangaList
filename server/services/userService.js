@@ -7,11 +7,10 @@ const { SECRET } = process.env;
 function create(username, email, password) {
 	const error = { code: 400, error: "E-mail já utilizado." };
 
-	const emailAlreadyRegisitered = UserModel.findByEmail(email);
+	const user = UserModel.findByEmail(email);
 
-	if (emailAlreadyRegisitered) {
-		return error;
-	}
+	if (user?.error) return user;
+	if (user) return error;
 
 	const salt = bcrypt.genSaltSync(10);
 	const hashedPassword = bcrypt.hashSync(password, salt);
@@ -26,9 +25,8 @@ function login(email, password) {
 
 	const user = UserModel.findByEmail(email);
 
-	if (!user) {
-		return error;
-	}
+	if (user?.error) return user;
+	if (!user) return error;
 
 	const validPassword = bcrypt.compareSync(password, user.password);
 
@@ -48,9 +46,8 @@ function getInfo(id) {
 
 	const user = UserModel.findById(id);
 
-	if (!user || !user.active) {
-		return error;
-	}
+	if (user?.error) return user;
+	if (!user || !user.active) return error;
 
 	delete user["password"];
 	delete user["active"];
@@ -58,8 +55,31 @@ function getInfo(id) {
 	return user;
 }
 
+function updateInfo(id, avatar_url, username, email) {
+	const error = { code: 400, error: "Não foi possível fazer a edição." };
+
+	const user = UserModel.findByEmail(email);
+
+	if (user?.error) return user;
+	if (user) {
+		error.error = "Email já em uso.";
+		return error;
+	}
+
+	const userUpdated = UserModel.updateUser(id, avatar_url, username, email);
+
+	if (userUpdated?.error) return userUpdated;
+	if (!userUpdated || !userUpdated.active) return error;
+
+	delete userUpdated["password"];
+	delete userUpdated["active"];
+
+	return userUpdated;
+}
+
 module.exports = {
 	create,
 	login,
 	getInfo,
+	updateInfo,
 };

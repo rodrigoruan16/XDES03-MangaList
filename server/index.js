@@ -33,3 +33,4 @@ app.post("/user/create", UserController.create);
 app.post("/user/login", UserController.login);
 app.post("/user/logout", UserController.logout);
 app.get("/user/info", AuthMiddleware, UserController.getInfo);
+app.patch("/user/edit", AuthMiddleware, UserController.editInfo);

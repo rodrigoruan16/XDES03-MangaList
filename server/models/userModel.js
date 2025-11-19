@@ -54,8 +54,32 @@ function findById(id) {
 	}
 }
 
+function updateUser(id, avatar_url, username, email) {
+	try {
+		const data = JSON.parse(fs.readFileSync(DB_PATH, "utf-8"));
+
+		const user = data.find((user) => user.id == id);
+
+		if (!user) {
+			return { code: 404, error: "Usuário não encontrado." };
+		}
+
+		user["avatar_url"] = avatar_url;
+		user["username"] = username;
+		user["email"] = email;
+		user["updated_at"] = new Date().toISOString();
+
+		fs.writeFileSync(DB_PATH, JSON.stringify(data));
+
+		return user;
+	} catch (err) {
+		return { code: 500, error: err.message };
+	}
+}
+
 module.exports = {
 	create,
 	findByEmail,
 	findById,
+	updateUser,
 };
