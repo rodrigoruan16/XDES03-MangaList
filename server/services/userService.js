@@ -61,7 +61,7 @@ function updateInfo(id, avatar_url, username, email) {
 	const user = UserModel.findByEmail(email);
 
 	if (user?.error) return user;
-	if (user) {
+	if (user && user.id != id) {
 		error.error = "Email já em uso.";
 		return error;
 	}

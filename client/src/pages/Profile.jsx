@@ -91,13 +91,12 @@ function Profile() {
 				setEmail(email);
 				setUser({ ...user, updated_at, created_at });
 				setErrorMessage("Perfil editado com sucesso.");
+				setEditMode(false);
 			}
 		} catch (err) {
 			const serverErrorMessage = err?.response?.data?.error;
 			setErrorMessage(serverErrorMessage || err.message);
 		}
-
-		setEditMode(false);
 	}
 
 	return (
