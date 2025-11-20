@@ -27,16 +27,9 @@ function Home() {
 				},
 			},
 		})
-			.then((res) => {
-				const { data } = res;
-				setMangas(data.data);
-			})
-			.catch((err) => {
-				console.log(err);
-			})
-			.finally(() => {
-				setLoading(false);
-			});
+			.then((res) => setMangas(res?.data?.data))
+			.catch((err) => console.log(err))
+			.finally(() => setLoading(false));
 	}
 
 	React.useEffect(() => {
@@ -65,39 +58,24 @@ function Home() {
 							<p id="loading-msg">Carregando...</p>
 						) : (
 							mangas.map((manga, idx) => {
-								const attributes = manga.attributes;
-								const cover = manga?.relationships.find(
-									({ type }) => type === "cover_art"
-								).attributes.fileName;
+								const { attributes, relationships, id, type } = manga;
+								const cover = relationships.find(({ type }) => type === "cover_art")?.attributes
+									?.fileName;
 
-								attributes.id = manga.id;
-								attributes.type = manga.type;
-								attributes.relationships = manga.relationships;
-								attributes.cover = cover;
+								const mangaData = { ...attributes, id, type, relationships, cover };
 
-								return (
-									<MangaCard
-										key={idx}
-										attributes={attributes}
-									/>
-								);
+								return <MangaCard key={id} attributes={mangaData} />;
 							})
 						)}
 					</div>
 				</div>
 
 				<div className="navigate-container">
-					<button
-						className="arrow-button"
-						onClick={() => setPage(page == 0 ? 0 : page - 1)}
-					>
+					<button className="arrow-button" onClick={() => setPage(Math.max(0, page - 1))}>
 						<img src="https://img.icons8.com/?size=100&id=39944&format=png&color=ffffff"></img>
 					</button>
 					<input value={page + 1} type="text" disabled></input>
-					<button
-						className="arrow-button"
-						onClick={() => setPage(page + 1)}
-					>
+					<button className="arrow-button" onClick={() => setPage(page + 1)}>
 						<img src="https://img.icons8.com/?size=100&id=8OOIdPe6NXVi&format=png&color=ffffff"></img>
 					</button>
 				</div>

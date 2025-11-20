@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router";
 
 import "../css/Header.css";
@@ -20,20 +19,13 @@ function Header() {
 				<Link className="nav-link" to="/favorites">
 					Favoritos
 				</Link>
-				<a
-					className="nav-link"
-					target="_blank"
-					href="https://mangadex.org/"
-				>
+				<a className="nav-link" target="_blank" href="https://mangadex.org/">
 					Mangadex
 				</a>
 			</div>
 
 			<div className="user-info">
-				<Link
-					id="user-container"
-					to={user_logged ? "/profile" : "/login"}
-				>
+				<Link id="user-container" to={user_logged ? "/profile" : "/login"}>
 					<img
 						className="user-avatar"
 						src={

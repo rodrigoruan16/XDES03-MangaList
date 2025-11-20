@@ -30,10 +30,10 @@ function Login() {
 			});
 
 			if (response.status === 200) {
-				navigate("/favorites");
-				sessionStorage.setItem("user_logged", true);
 				const user_info = JSON.stringify(response.data.user);
+				sessionStorage.setItem("user_logged", true);
 				sessionStorage.setItem("user_info", user_info);
+				navigate("/favorites");
 			}
 		} catch (err) {
 			const serverErrorMessage = err?.response?.data?.error;
@@ -48,30 +48,19 @@ function Login() {
 				<div className="form-container">
 					<div className="input-section">
 						<h1>Entrar em sua conta</h1>
-						<form className="form" onSubmit={(e) => submitLogin(e)}>
-							<label for="email">E-mail</label>
-							<input
-								id="email"
-								type="email"
-								onChange={(e) => setEmail(e.target.value)}
-							></input>
 
-							<label for="password">Senha</label>
-							<input
-								id="password"
-								type="password"
-								onChange={(e) => setPassword(e.target.value)}
-							></input>
+						<form className="form" onSubmit={(e) => submitLogin(e)}>
+							<label htmlFor="email">E-mail</label>
+							<input id="email" type="email" onChange={(e) => setEmail(e.target.value)}></input>
+
+							<label htmlFor="password">Senha</label>
+							<input id="password" type="password" onChange={(e) => setPassword(e.target.value)}></input>
 
 							<p className="forgot-password">
 								Esqueceu a senha?{" "}
 								<span
 									className="forgot-password-click"
-									onClick={() =>
-										alert(
-											"Entre em contato com o administrador!"
-										)
-									}
+									onClick={() => alert("Entre em contato com o administrador!")}
 								>
 									Clique aqui
 								</span>

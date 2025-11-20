@@ -4,7 +4,6 @@ import "../css/MangaCard.css";
 
 function capitalize(word) {
 	if (!word) return "";
-
 	return word.charAt(0).toUpperCase() + word.slice(1);
 }
 
@@ -30,9 +29,7 @@ function MangaCard({ attributes }) {
 
 			<div className="manga-attributes">
 				<div className="title-container">
-					<p className="manga-title">
-						{Object.values(attributes.title)[0]}
-					</p>
+					<p className="manga-title">{Object.values(attributes.title)[0]}</p>
 
 					<span onClick={addToFavorites} className="favorite-span">
 						<img
@@ -56,9 +53,7 @@ function MangaCard({ attributes }) {
 					</p>
 					<p>{capitalize(attributes?.publicationDemographic)} </p>
 					<p className="manga-card-status">
-						<span className={`${attributes?.status}-status`}>
-							&#9679;
-						</span>
+						<span className={`${attributes?.status}-status`}>&#9679;</span>
 						{capitalize(attributes?.status)}
 					</p>
 				</div>
