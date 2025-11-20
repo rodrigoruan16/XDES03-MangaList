@@ -1,6 +1,5 @@
 .profile-container {
 	display: flex;
-
 	flex-direction: column;
 	margin: 0 auto;
 	margin-top: 80px;
@@ -28,21 +27,12 @@
 	font-weight: bold;
 }
 
-.pfp-container input {
-	width: 80%;
-	margin-bottom: 20px;
-}
-
 .profile-body {
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	max-width: 1000px;
 	margin: 0 auto;
-}
-
-.edit-icon {
-	width: 30px;
 }
 
 .profile-picture {
@@ -53,37 +43,14 @@
 	margin-bottom: 30px;
 }
 
-.success-message {
-	color: green;
-	margin-top: 20px;
-	text-align: center;
-	font-size: 12px;
-}
-
-#buttons-container {
-	display: flex;
-	justify-content: center;
-	gap: 20px;
-}
-
 .logout-button {
 	display: block;
 	background-color: red;
 	color: white;
-	margin-top: 30px;
 	padding: 3px 20px;
 	border: none;
 	border-radius: 0.25rem;
 	cursor: pointer;
-}
-
-.edit-button {
-	display: block;
-	background-color: #a53bd9;
-	color: white;
+	margin: 0 auto;
 	margin-top: 30px;
-	padding: 3px 20px;
-	border: none;
-	border-radius: 0.25rem;
-	cursor: pointer;
 }

@@ -9,6 +9,7 @@ import { useNavigate } from "react-router";
 
 function Favorites() {
 	const navigate = useNavigate();
+
 	return (
 		<>
 			<Header />
