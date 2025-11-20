@@ -1,12 +1,9 @@
 import React from "react";
 import axios from "axios";
-
 import Header from "../components/Header";
-
-import "../css/Forms.css";
-
 import { Link, useNavigate } from "react-router";
 import { LoginSchema } from "../schemas/LoginSchema";
+import "../css/Forms.css";
 
 function Login() {
 	const navigate = useNavigate();

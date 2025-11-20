@@ -1,10 +1,8 @@
 import React from "react";
 import axios from "axios";
-
 import Header from "../components/Header";
-
-import "../css/Mangas.css";
 import MangaCard from "../components/MangaCard";
+import "../css/Mangas.css";
 
 function Home() {
 	const [mangas, setMangas] = React.useState([]);

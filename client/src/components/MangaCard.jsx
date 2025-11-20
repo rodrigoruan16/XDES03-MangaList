@@ -1,5 +1,4 @@
 import React from "react";
-
 import "../css/MangaCard.css";
 
 function capitalize(word) {

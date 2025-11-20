@@ -1,9 +1,8 @@
 import React from "react";
 import axios from "axios";
-
-import "../css/Profile.css";
 import Header from "../components/Header";
 import { useNavigate } from "react-router";
+import "../css/Profile.css";
 
 function Profile() {
 	const navigate = useNavigate();
