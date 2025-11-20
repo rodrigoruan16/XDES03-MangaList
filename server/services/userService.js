@@ -2,64 +2,47 @@ const UserModel = require("../models/userModel");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
+const statusCode = require("../helpers/statusCode");
+
 const { SECRET } = process.env;
 
-function create(username, email, password) {
-	const error = { code: 400, error: "E-mail já utilizado." };
+const error = (code, msg) => ({ code, error: msg });
 
-	try {
-		const user = UserModel.findByEmail(email);
-
-		if (user) {
-			return error;
-		}
-
-		const salt = bcrypt.genSaltSync(10);
-		const hashedPassword = bcrypt.hashSync(password, salt);
-
-		const response = UserModel.create(username, email, hashedPassword);
-
-		return response;
-	} catch (err) {
-		error["error"] = err.message;
-		return error;
-	}
-}
-
-function login(email, password) {
-	const error = { code: 400, error: "Email ou senha incorretos" };
-
+const create = (username, email, password) => {
 	const user = UserModel.findByEmail(email);
+	if (user) return error(statusCode.BAD_REQUEST, "E-mail já utilizado");
 
-	if (user?.error) return user;
-	if (!user) return error;
+	const salt = bcrypt.genSaltSync(10);
+	const hashedPassword = bcrypt.hashSync(password, salt);
+
+	const response = UserModel.create(username, email, hashedPassword);
+	return response;
+};
+
+const login = (email, password) => {
+	const user = UserModel.findByEmail(email);
+	if (!user) return error(statusCode.BAD_REQUEST, "E-mail já utilizado");
 
 	const validPassword = bcrypt.compareSync(password, user.password);
-
-	if (!validPassword) {
-		return error;
-	}
+	if (!validPassword) return error;
 
 	const { id, username, avatar_url } = user;
 
 	const token = jwt.sign({ user: { id, email } }, SECRET);
 
 	return { token, id, username, avatar_url };
-}
+};
 
-function getInfo(id) {
-	const error = { code: 400, error: "Não foi possível fazer a requisição" };
-
+const getInfo = (id) => {
 	const user = UserModel.findById(id);
 
-	if (user?.error) return user;
-	if (!user || !user.active) return error;
+	if (!user || !user.active) return error(statusCode.BAD_REQUEST, "E-mail já utilizado");
 
 	delete user["password"];
 	delete user["active"];
 
 	return user;
-}
+};
 
 module.exports = {
 	create,
