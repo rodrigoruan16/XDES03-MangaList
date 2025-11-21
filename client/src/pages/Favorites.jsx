@@ -20,6 +20,9 @@ function Favorites() {
 				withCredentials: true,
 			});
 			const favorite_ids = favorited_mangas?.data?.favorites;
+			if (favorite_ids?.length == 0) {
+				return;
+			}
 
 			let favorites_url = "https://api.mangadex.org/manga?includes[]=cover_art";
 			favorite_ids.forEach((favorite) => (favorites_url += `&ids[]=${favorite.manga_id}`));
@@ -30,7 +33,7 @@ function Favorites() {
 			});
 
 			const favoritesWithComments = favoritesFetched?.data?.data.map((favorite) => {
-				favorite["comments"] = favorite_ids.find(({ manga_id }) => favorite.id == manga_id).comments;
+				favorite["comments"] = favorite_ids.find(({ manga_id }) => favorite.id == manga_id)?.comments || [];
 				return favorite;
 			});
 
@@ -101,7 +104,16 @@ function Favorites() {
 					const { attributes, relationships, id, type } = manga;
 					const cover = relationships.find(({ type }) => type === "cover_art")?.attributes?.fileName;
 
-					const mangaData = { ...attributes, id, type, relationships, cover, isFavoritesPage: 1 };
+					const mangaData = {
+						...attributes,
+						id,
+						type,
+						relationships,
+						cover,
+						isFavoritesPage: 1,
+						setFavorites,
+						favorites,
+					};
 
 					return (
 						<div key={id} className="manga-card-container">
@@ -118,7 +130,7 @@ function Favorites() {
 								<h3>Comentários</h3>
 
 								<div className="comments-container">
-									{manga.comments.map(({ id, user_id, email, comment }) => (
+									{manga?.comments.map(({ id, user_id, email, comment }) => (
 										<div key={id}>
 											<div className="comment-info">
 												<p>{email}</p>

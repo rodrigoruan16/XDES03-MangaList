@@ -36,7 +36,10 @@ app.post("/user/logout", UserController.logout);
 app.get("/user/info", AuthMiddleware, UserController.getInfo);
 
 // Rotas de manga
+// 1º Favoritos
 app.get("/manga/favorite", AuthMiddleware, MangaController.getFavorites);
 app.post("/manga/favorite", AuthMiddleware, MangaController.setFavorite);
+app.delete("/manga/favorite", AuthMiddleware, MangaController.removeFavorite);
+// 2º Comentários
 app.post("/manga/comment", AuthMiddleware, MangaController.addComment);
 app.delete("/manga/comment", AuthMiddleware, MangaController.removeComment);

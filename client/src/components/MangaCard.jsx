@@ -17,6 +17,8 @@ function MangaCard({ attributes }) {
 			return navigate("/login");
 		}
 
+		if (favorited) return;
+
 		try {
 			await axios({
 				url: "http://localhost:3001/manga/favorite",
@@ -34,7 +36,23 @@ function MangaCard({ attributes }) {
 			}
 		}
 
-		setFavorited(!favorited); // caso a requisição colocou como favorito
+		setFavorited(true);
+	}
+
+	async function removeFavorite() {
+		try {
+			await axios({
+				method: "DELETE",
+				url: "http://localhost:3001/manga/favorite",
+				data: {
+					manga_id: attributes.id,
+				},
+				withCredentials: true,
+			});
+
+			const { favorites, setFavorites } = attributes;
+			setFavorites(favorites.filter((favorite) => favorite.id != attributes.id));
+		} catch (err) {}
 	}
 
 	return (
@@ -49,7 +67,10 @@ function MangaCard({ attributes }) {
 			<div className="manga-attributes">
 				<div className="title-container">
 					<p className="manga-title">{Object.values(attributes.title)[0]}</p>
-					<span onClick={addToFavorites} className="favorite-span">
+					<span
+						onClick={attributes?.isFavoritesPage ? removeFavorite : addToFavorites}
+						className="favorite-span"
+					>
 						<img
 							alt="icone de favoritar"
 							src={

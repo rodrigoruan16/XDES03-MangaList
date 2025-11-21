@@ -1,9 +1,9 @@
 const MangaService = require("../services/mangaService.js");
 
-function getFavorites(req, res) {
+async function getFavorites(req, res) {
 	const data = req.token;
 
-	const response = MangaService.getFavorites(data?.user?.id);
+	const response = await MangaService.getFavorites(data?.user?.id);
 
 	if (response.error) {
 		const { code, error } = response;
@@ -16,10 +16,10 @@ function getFavorites(req, res) {
 	});
 }
 
-function setFavorite(req, res) {
+async function setFavorite(req, res) {
 	const data = req.token;
 
-	const response = MangaService.setFavorite(data?.user?.id, req.body?.manga_id);
+	const response = await MangaService.setFavorite(data?.user?.id, req.body?.manga_id);
 
 	if (response.error) {
 		const { code, error } = response;
@@ -32,10 +32,15 @@ function setFavorite(req, res) {
 	});
 }
 
-function addComment(req, res) {
+async function addComment(req, res) {
 	const data = req.token;
 
-	const response = MangaService.addComment(data?.user?.id, data?.user?.email, req.body?.manga_id, req.body?.comment);
+	const response = await MangaService.addComment(
+		data?.user?.id,
+		data?.user?.email,
+		req.body?.manga_id,
+		req.body?.comment
+	);
 
 	if (response.error) {
 		const { code, error } = response;
@@ -48,14 +53,24 @@ function addComment(req, res) {
 	});
 }
 
-function removeComment(req, res) {
+async function removeComment(req, res) {
 	const data = req.token;
 
-	MangaService.removeComment(data?.user?.id, req.body?.comment_id);
+	await MangaService.removeComment(data?.user?.id, req.body?.comment_id);
 
 	res.status(200).json({
 		message: "Comentário removido com sucesso.",
 	});
 }
 
-module.exports = { setFavorite, getFavorites, addComment, removeComment };
+async function removeFavorite(req, res) {
+	const data = req.token;
+
+	await MangaService.removeFavorite(data?.user?.id, req.body?.manga_id);
+
+	res.status(200).json({
+		message: "Manga removido dos favoritos com sucesso.",
+	});
+}
+
+module.exports = { setFavorite, getFavorites, addComment, removeComment, removeFavorite };
