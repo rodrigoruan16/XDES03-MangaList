@@ -46,6 +46,32 @@
 	border-radius: 6px;
 }
 
+.edit-comment-container {
+	display: flex;
+	gap: 10px;
+	margin-bottom: 5px;
+}
+
+.edit-comment-container button {
+	cursor: pointer;
+}
+
+.edit-comment-button {
+	background-color: #a53bd9;
+	color: white;
+	padding: 0 10px;
+	border: none;
+	border-radius: 0.25rem;
+}
+
+.remove-comment-button {
+	background-color: #ff0000;
+	color: white;
+	padding: 0 10px;
+	border: none;
+	border-radius: 0.25rem;
+}
+
 .comments-section h3 {
 	margin-left: 5px;
 }
@@ -56,4 +82,14 @@
 	border: 1px solid white;
 	border-radius: 4px;
 	word-break: break-word;
+}
+
+.comment-info {
+	display: flex;
+	justify-content: space-between;
+}
+
+.comment-info img {
+	width: 20px;
+	cursor: pointer;
 }

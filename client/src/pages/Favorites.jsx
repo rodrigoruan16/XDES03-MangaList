@@ -8,6 +8,7 @@ import MangaCard from "../components/MangaCard";
 
 function Favorites() {
 	const navigate = useNavigate();
+	const [userId, setUserId] = React.useState(null);
 	const [favorites, setFavorites] = React.useState([]);
 	const [comments, setComments] = React.useState({});
 
@@ -48,7 +49,7 @@ function Favorites() {
 		if (!comments[id]) return;
 
 		try {
-			const res = await axios({
+			await axios({
 				method: "POST",
 				url: "http://localhost:3001/manga/comment",
 				data: {
@@ -58,19 +59,20 @@ function Favorites() {
 				withCredentials: true,
 			});
 
-			console.log(comments[id]);
+			e.target[0].value = "";
+			comments[id] = "";
+
+			getFavorites();
 		} catch (err) {
 			console.log(err);
 		}
-
-		e.target[0].value = "";
-		comments[id] = "";
 	}
 
 	React.useEffect(() => {
 		if (!sessionStorage.getItem("user_logged")) {
 			return navigate("/login");
 		}
+		setUserId(JSON.parse(sessionStorage.getItem("user_info")).id);
 		getFavorites();
 	}, []);
 
@@ -99,13 +101,22 @@ function Favorites() {
 								<h3>Comentários</h3>
 
 								<div className="comments-container">
-									{manga.comments.map(({ id, email, comment }) => (
-										<>
-											<p>{email}</p>
+									{manga.comments.map(({ id, user_id, email, comment }) => (
+										<div key={id}>
+											<div className="comment-info">
+												<p>{email}</p>
+
+												{user_id == userId && (
+													<div className="edit-comment-container">
+														<button className="edit-comment-button">Editar</button>
+														<button className="remove-comment-button">Excluir</button>
+													</div>
+												)}
+											</div>
 											<p className="comment" key={id}>
 												{comment}
 											</p>
-										</>
+										</div>
 									))}
 								</div>
 							</section>
