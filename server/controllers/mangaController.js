@@ -32,4 +32,35 @@ function setFavorite(req, res) {
 	});
 }
 
-module.exports = { setFavorite, getFavorites };
+function getComments(req, res) {
+	const data = req.token;
+
+	const response = MangaService.getComments(data?.user?.id);
+
+	if (response.error) {
+		const { code, error } = response;
+		return res.status(code).json({ error });
+	}
+
+	res.status(200).json({
+		data: response,
+	});
+}
+
+function addComment(req, res) {
+	const data = req.token;
+
+	const response = MangaService.addComment(data?.user?.id, data?.user?.email, req.body?.manga_id, req.body?.comment);
+
+	if (response.error) {
+		const { code, error } = response;
+		return res.status(code).json({ error });
+	}
+
+	res.status(200).json({
+		message: "Comentário adicionado com sucesso.",
+		data: response,
+	});
+}
+
+module.exports = { setFavorite, getFavorites, addComment, getComments };

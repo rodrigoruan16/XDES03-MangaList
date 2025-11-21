@@ -21,7 +21,19 @@ const setFavorite = (user_id, manga_id) => {
 	return favorited;
 };
 
+const getComments = (user_id) => {
+	const comments = MangaModel.getComments(user_id);
+	return comments;
+};
+
+const addComment = (user_id, email, manga_id, comment) => {
+	const added_comment = MangaModel.addComment(user_id, email, manga_id, comment);
+	return added_comment;
+};
+
 module.exports = {
 	setFavorite,
 	getFavorites,
+	addComment,
+	getComments,
 };

@@ -38,3 +38,5 @@ app.get("/user/info", AuthMiddleware, UserController.getInfo);
 // Rotas de manga
 app.get("/manga/favorite", AuthMiddleware, MangaController.getFavorites);
 app.post("/manga/favorite", AuthMiddleware, MangaController.setFavorite);
+app.get("/manga/comment", AuthMiddleware, MangaController.getComments);
+app.post("/manga/comment", AuthMiddleware, MangaController.addComment);
