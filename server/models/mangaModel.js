@@ -51,9 +51,18 @@ function addComment(user_id, email, manga_id, comment) {
 	return commentObject;
 }
 
+function removeComment(user_id, comment_id) {
+	const data = JSON.parse(fs.readFileSync(DB_COMMENTS_PATH, "utf-8"));
+	const filteredData = data.filter((comment) => !(comment_id == comment.id && comment.user_id == user_id));
+	console.log(filteredData);
+	console.log(user_id, comment_id);
+	fs.writeFileSync(DB_COMMENTS_PATH, JSON.stringify(filteredData));
+}
+
 module.exports = {
 	setFavorite,
 	getFavorites,
 	addComment,
 	getComments,
+	removeComment,
 };

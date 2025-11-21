@@ -48,4 +48,14 @@ function addComment(req, res) {
 	});
 }
 
-module.exports = { setFavorite, getFavorites, addComment };
+function removeComment(req, res) {
+	const data = req.token;
+
+	MangaService.removeComment(data?.user?.id, req.body?.comment_id);
+
+	res.status(200).json({
+		message: "Comentário removido com sucesso.",
+	});
+}
+
+module.exports = { setFavorite, getFavorites, addComment, removeComment };

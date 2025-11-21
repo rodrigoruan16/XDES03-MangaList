@@ -68,6 +68,23 @@ function Favorites() {
 		}
 	}
 
+	async function removeComment(comment_id) {
+		try {
+			await axios({
+				method: "DELETE",
+				url: "http://localhost:3001/manga/comment",
+				data: {
+					comment_id,
+				},
+				withCredentials: true,
+			});
+
+			getFavorites();
+		} catch (err) {
+			console.log(err);
+		}
+	}
+
 	React.useEffect(() => {
 		if (!sessionStorage.getItem("user_logged")) {
 			return navigate("/login");
@@ -109,7 +126,12 @@ function Favorites() {
 												{user_id == userId && (
 													<div className="edit-comment-container">
 														<button className="edit-comment-button">Editar</button>
-														<button className="remove-comment-button">Excluir</button>
+														<button
+															onClick={() => removeComment(id)}
+															className="remove-comment-button"
+														>
+															Excluir
+														</button>
 													</div>
 												)}
 											</div>

@@ -39,3 +39,4 @@ app.get("/user/info", AuthMiddleware, UserController.getInfo);
 app.get("/manga/favorite", AuthMiddleware, MangaController.getFavorites);
 app.post("/manga/favorite", AuthMiddleware, MangaController.setFavorite);
 app.post("/manga/comment", AuthMiddleware, MangaController.addComment);
+app.delete("/manga/comment", AuthMiddleware, MangaController.removeComment);

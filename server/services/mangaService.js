@@ -33,8 +33,13 @@ const addComment = (user_id, email, manga_id, comment) => {
 	return added_comment;
 };
 
+const removeComment = (user_id, comment_id) => {
+	MangaModel.removeComment(user_id, comment_id);
+};
+
 module.exports = {
 	setFavorite,
 	getFavorites,
 	addComment,
+	removeComment,
 };
