@@ -55,7 +55,7 @@ function Home() {
 						{loading ? (
 							<p id="loading-msg">Carregando...</p>
 						) : (
-							mangas.map((manga, idx) => {
+							mangas.map((manga) => {
 								const { attributes, relationships, id, type } = manga;
 								const cover = relationships.find(({ type }) => type === "cover_art")?.attributes
 									?.fileName;

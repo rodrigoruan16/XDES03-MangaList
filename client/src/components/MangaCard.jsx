@@ -12,12 +12,27 @@ function MangaCard({ attributes }) {
 	const navigate = useNavigate();
 	const [favorited, setFavorited] = React.useState(false);
 
-	function addToFavorites() {
+	async function addToFavorites() {
 		if (!sessionStorage.getItem("user_logged")) {
 			return navigate("/login");
 		}
 
-		// faz a requisição e seta como favorito ou remove dos favoritos
+		try {
+			await axios({
+				url: "http://localhost:3001/manga/favorite",
+				method: "POST",
+				data: {
+					manga_id: attributes.id,
+				},
+				withCredentials: true,
+			});
+		} catch (err) {
+			const UNAUTHORIZED_STATUS = 401;
+			if (err.status == UNAUTHORIZED_STATUS) {
+				sessionStorage.clear();
+				return navigate("/login");
+			}
+		}
 
 		setFavorited(!favorited); // caso a requisição colocou como favorito
 	}
@@ -34,12 +49,13 @@ function MangaCard({ attributes }) {
 			<div className="manga-attributes">
 				<div className="title-container">
 					<p className="manga-title">{Object.values(attributes.title)[0]}</p>
-
 					<span onClick={addToFavorites} className="favorite-span">
 						<img
 							alt="icone de favoritar"
 							src={
-								favorited
+								attributes?.isFavoritesPage
+									? "https://img.icons8.com/?size=100&id=KPhFC2OwpbWV&format=png&color=FF0000"
+									: favorited
 									? "https://img.icons8.com/?size=100&id=10287&format=png&color=A53BD9"
 									: "https://img.icons8.com/?size=100&id=581&format=png&color=A53BD9"
 							}
