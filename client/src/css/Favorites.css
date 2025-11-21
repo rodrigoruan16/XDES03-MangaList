@@ -26,7 +26,7 @@
 
 .manga-card-container {
 	margin-bottom: 20px;
-    border: 1px solid #ad39e7a0;
+	border: 1px solid #ad39e7a0;
 }
 
 .manga-review input {
@@ -35,7 +35,7 @@
 	background-color: #3d414a;
 	border: none;
 	color: white;
-    padding-left: 5px;
+	padding-left: 5px;
 }
 
 .comments-container {
@@ -47,7 +47,7 @@
 }
 
 .comments-section h3 {
-    margin-left: 5px;
+	margin-left: 5px;
 }
 
 .comment {
@@ -55,4 +55,5 @@
 	margin-bottom: 10px;
 	border: 1px solid white;
 	border-radius: 4px;
+	word-break: break-word;
 }

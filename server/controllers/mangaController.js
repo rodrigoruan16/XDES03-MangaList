@@ -32,21 +32,6 @@ function setFavorite(req, res) {
 	});
 }
 
-function getComments(req, res) {
-	const data = req.token;
-
-	const response = MangaService.getComments(data?.user?.id);
-
-	if (response.error) {
-		const { code, error } = response;
-		return res.status(code).json({ error });
-	}
-
-	res.status(200).json({
-		data: response,
-	});
-}
-
 function addComment(req, res) {
 	const data = req.token;
 
@@ -63,4 +48,4 @@ function addComment(req, res) {
 	});
 }
 
-module.exports = { setFavorite, getFavorites, addComment, getComments };
+module.exports = { setFavorite, getFavorites, addComment };

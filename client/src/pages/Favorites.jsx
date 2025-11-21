@@ -13,22 +13,27 @@ function Favorites() {
 
 	async function getFavorites() {
 		try {
-			const favorites_id = await axios({
+			const favorited_mangas = await axios({
 				method: "GET",
 				url: "http://localhost:3001/manga/favorite",
 				withCredentials: true,
-			}).then((res) => res.data?.favorites);
+			});
+			const favorite_ids = favorited_mangas?.data?.favorites;
 
 			let favorites_url = "https://api.mangadex.org/manga?includes[]=cover_art";
-
-			favorites_id.forEach((favorite) => (favorites_url += `&ids[]=${favorite.manga_id}`));
+			favorite_ids.forEach((favorite) => (favorites_url += `&ids[]=${favorite.manga_id}`));
 
 			const favoritesFetched = await axios({
 				method: "GET",
 				url: favorites_url,
 			});
 
-			setFavorites(favoritesFetched?.data?.data);
+			const favoritesWithComments = favoritesFetched?.data?.data.map((favorite) => {
+				favorite["comments"] = favorite_ids.find(({ manga_id }) => favorite.id == manga_id).comments;
+				return favorite;
+			});
+
+			setFavorites(favoritesWithComments);
 		} catch (err) {
 			const UNAUTHORIZED_STATUS = 401;
 			if (err.status == UNAUTHORIZED_STATUS) {
@@ -37,11 +42,25 @@ function Favorites() {
 		}
 	}
 
-	function addComment(e, id) {
+	async function addComment(e, id) {
 		e.preventDefault();
 
-		if (!comments[id]) {
-			return;
+		if (!comments[id]) return;
+
+		try {
+			const res = await axios({
+				method: "POST",
+				url: "http://localhost:3001/manga/comment",
+				data: {
+					manga_id: id,
+					comment: comments[id],
+				},
+				withCredentials: true,
+			});
+
+			console.log(comments[id]);
+		} catch (err) {
+			console.log(err);
 		}
 
 		e.target[0].value = "";
@@ -79,7 +98,16 @@ function Favorites() {
 							<section className="comments-section">
 								<h3>Comentários</h3>
 
-								<div className="comments-container"></div>
+								<div className="comments-container">
+									{manga.comments.map(({ id, email, comment }) => (
+										<>
+											<p>{email}</p>
+											<p className="comment" key={id}>
+												{comment}
+											</p>
+										</>
+									))}
+								</div>
 							</section>
 						</div>
 					);

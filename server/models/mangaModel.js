@@ -26,13 +26,13 @@ function setFavorite(user_id, manga_id) {
 	return favoritedObject;
 }
 
-function getComments(user_id) {
+function getComments(mangas_id) {
 	const data = JSON.parse(fs.readFileSync(DB_COMMENTS_PATH, "utf-8"));
-	const filteredData = data.filter((comment) => comment.user_id === user_id);
+	const filteredData = data.filter((comment) => mangas_id.includes(comment.manga_id));
 	return filteredData;
 }
 
-function addComment(user_id, manga_id, comment) {
+function addComment(user_id, email, manga_id, comment) {
 	const data = JSON.parse(fs.readFileSync(DB_COMMENTS_PATH, "utf-8"));
 
 	const commentObject = {

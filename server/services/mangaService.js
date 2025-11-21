@@ -6,7 +6,14 @@ const error = (code, msg) => ({ code, error: msg });
 
 const getFavorites = (user_id) => {
 	const userFavorites = MangaModel.getFavorites(user_id);
-	return userFavorites;
+	const comments = MangaModel.getComments(userFavorites.map((favorite) => favorite.manga_id));
+
+	const favoritesWithComments = userFavorites.map((favorite) => {
+		favorite["comments"] = comments.filter((comment) => favorite.manga_id == comment.manga_id);
+		return favorite;
+	});
+
+	return favoritesWithComments;
 };
 
 const setFavorite = (user_id, manga_id) => {
@@ -21,11 +28,6 @@ const setFavorite = (user_id, manga_id) => {
 	return favorited;
 };
 
-const getComments = (user_id) => {
-	const comments = MangaModel.getComments(user_id);
-	return comments;
-};
-
 const addComment = (user_id, email, manga_id, comment) => {
 	const added_comment = MangaModel.addComment(user_id, email, manga_id, comment);
 	return added_comment;
@@ -35,5 +37,4 @@ module.exports = {
 	setFavorite,
 	getFavorites,
 	addComment,
-	getComments,
 };
