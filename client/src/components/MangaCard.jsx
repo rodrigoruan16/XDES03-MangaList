@@ -1,5 +1,7 @@
 import React from "react";
+import axios from "axios";
 import "../css/MangaCard.css";
+import { useNavigate } from "react-router";
 
 function capitalize(word) {
 	if (!word) return "";
@@ -7,10 +9,13 @@ function capitalize(word) {
 }
 
 function MangaCard({ attributes }) {
+	const navigate = useNavigate();
 	const [favorited, setFavorited] = React.useState(false);
 
 	function addToFavorites() {
-		// verifica se está logado primeiro!
+		if (!sessionStorage.getItem("user_logged")) {
+			return navigate("/login");
+		}
 
 		// faz a requisição e seta como favorito ou remove dos favoritos
 

@@ -8,6 +8,7 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 const UserController = require("./controllers/userController");
+const MangaController = require("./controllers/mangaController");
 const { AuthMiddleware } = require("./middlewares/authMiddleware");
 
 app.use(express.json()); // Permite receber dados no formato JSON nas requisições
@@ -33,3 +34,7 @@ app.post("/user/create", UserController.create);
 app.post("/user/login", UserController.login);
 app.post("/user/logout", UserController.logout);
 app.get("/user/info", AuthMiddleware, UserController.getInfo);
+
+// Rotas de manga
+app.get("/manga/favorite", AuthMiddleware, MangaController.getFavorites);
+app.post("/manga/favorite", AuthMiddleware, MangaController.setFavorite);

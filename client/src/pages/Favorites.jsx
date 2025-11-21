@@ -7,6 +7,10 @@ import "../css/Favorites.css";
 function Favorites() {
 	const navigate = useNavigate();
 
+	// faz a requisição para pegar os favoritos, mas primeiro verifica se está logado no sessionStorage
+
+	
+
 	return (
 		<>
 			<Header />
