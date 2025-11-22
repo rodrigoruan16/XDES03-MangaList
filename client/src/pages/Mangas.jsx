@@ -67,7 +67,6 @@ function Home() {
 						)}
 					</div>
 				</div>
-
 				<div className="navigate-container">
 					<button className="arrow-button" onClick={() => setPage(Math.max(0, page - 1))}>
 						<img src="https://img.icons8.com/?size=100&id=39944&format=png&color=ffffff"></img>

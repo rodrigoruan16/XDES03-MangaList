@@ -9,10 +9,7 @@ const RegisterSchema = yup.object({
 		.required("Por favor, digite a sua senha."),
 	confirmPassword: yup
 		.string()
-		.oneOf(
-			[yup.ref("password")],
-			"A senha de confirmação deve ser igual a senha."
-		)
+		.oneOf([yup.ref("password")], "A senha de confirmação deve ser igual a senha.")
 		.required("A senha de confirmação não deve ser vazia."),
 });
 

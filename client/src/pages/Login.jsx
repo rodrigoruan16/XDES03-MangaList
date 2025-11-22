@@ -1,5 +1,5 @@
 import React from "react";
-import axios from "axios";
+import { loginUser } from "../services/userService";
 import Header from "../components/Header";
 import { Link, useNavigate } from "react-router";
 import { LoginSchema } from "../schemas/LoginSchema";
@@ -14,17 +14,10 @@ function Login() {
 	async function submitLogin(e) {
 		e.preventDefault();
 
-		const dataToLogin = { email, password };
-
 		try {
+			const dataToLogin = { email, password };
 			await LoginSchema.validate(dataToLogin);
-
-			const response = await axios({
-				url: "http://localhost:3001/user/login",
-				method: "POST",
-				data: dataToLogin,
-				withCredentials: true,
-			});
+			const response = await loginUser(dataToLogin);
 
 			if (response.status === 200) {
 				const user_info = JSON.stringify(response.data.user);
@@ -45,14 +38,11 @@ function Login() {
 				<div className="form-container">
 					<div className="input-section">
 						<h1>Entrar em sua conta</h1>
-
 						<form className="form" onSubmit={(e) => submitLogin(e)}>
 							<label htmlFor="email">E-mail</label>
 							<input id="email" type="email" onChange={(e) => setEmail(e.target.value)}></input>
-
 							<label htmlFor="password">Senha</label>
 							<input id="password" type="password" onChange={(e) => setPassword(e.target.value)}></input>
-
 							<p className="forgot-password">
 								Esqueceu a senha?{" "}
 								<span
@@ -62,9 +52,7 @@ function Login() {
 									Clique aqui
 								</span>
 							</p>
-
 							<button className="login-button">Entrar</button>
-
 							<p className="error-message">{errorMessage}</p>
 						</form>
 					</div>

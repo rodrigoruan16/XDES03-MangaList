@@ -1,5 +1,5 @@
 import React from "react";
-import axios from "axios";
+import { createUser } from "../services/userService";
 import { Link, useNavigate } from "react-router";
 import { RegisterSchema } from "../schemas/RegisterSchema";
 import Header from "../components/Header";
@@ -21,13 +21,7 @@ function Register() {
 
 		try {
 			await RegisterSchema.validate(user);
-
-			const response = await axios({
-				url: "http://localhost:3001/user/create",
-				method: "POST",
-				data: user,
-			});
-
+			const response = await createUser(user);
 			if (response.status === 200) navigate("/login");
 		} catch (err) {
 			const serverErrorMessage = err?.response?.data?.error;
@@ -42,7 +36,6 @@ function Register() {
 				<div className="form-container">
 					<div className="input-section">
 						<h1>Registrar sua conta</h1>
-
 						<form className="form" onSubmit={(e) => submitRegister(e)}>
 							<FormInput
 								setUser={setUser}
@@ -60,12 +53,9 @@ function Register() {
 								label="Confirmar senha "
 								id="confirmPassword"
 							/>
-
 							<button className="register-button">Registrar</button>
-
 							<p className="error-message">{errorMessage}</p>
 						</form>
-
 						<Link id="return-to-login-page" to="/login">
 							Volta à página de login
 						</Link>
