@@ -3,14 +3,14 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 const statusCode = require("../helpers/statusCode");
+const { throwError } = require("../helpers/throwError");
 
 const { SECRET } = process.env;
 
-const error = (code, msg) => ({ code, error: msg });
-
 async function create(username, email, password) {
 	const user = await UserModel.findByEmail(email);
-	if (user) return error(statusCode.BAD_REQUEST, "E-mail já utilizado");
+
+	if (user) throwError(statusCode.CONFLICT, "E-mail já utilizado");
 
 	const salt = await bcrypt.genSalt(10);
 	const hashedPassword = await bcrypt.hash(password, salt);
@@ -20,12 +20,12 @@ async function create(username, email, password) {
 
 async function login(email, password) {
 	const user = await UserModel.findByEmail(email);
-	const defaultError = error(statusCode.BAD_REQUEST, "E-mail ou senha inválidos");
+	const error_message = "E-mail ou senha inválidos";
 
-	if (!user) return defaultError;
+	if (!user) throwError(statusCode.UNAUTHORIZED, error_message);
 
 	const validPassword = await bcrypt.compare(password, user.password);
-	if (!validPassword) return defaultError;
+	if (!validPassword) throwError(statusCode.UNAUTHORIZED, error_message);
 
 	const { id, username, avatar_url } = user;
 
@@ -37,7 +37,7 @@ async function login(email, password) {
 async function getInfo(id) {
 	const user = await UserModel.findById(id);
 
-	if (!user || !user.active) return error(statusCode.NOT_FOUND, "Usuário não encontrado");
+	if (!user || !user.active) throwError(statusCode.NOT_FOUND, "Usuário não encontrado");
 
 	const { password, active, ...publicData } = user;
 

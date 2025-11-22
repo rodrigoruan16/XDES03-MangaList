@@ -2,14 +2,7 @@ const UserService = require("../services/userService.js");
 
 async function create(req, res) {
 	const { email, username, password } = req.body;
-
-	const response = await UserService.create(username, email, password);
-
-	if (response.error) {
-		const { code, error } = response;
-		return res.status(code).json({ error });
-	}
-
+	await UserService.create(username, email, password);
 	res.status(200).json({ message: "Usuário criado com sucesso." });
 }
 
@@ -17,12 +10,6 @@ async function login(req, res) {
 	const { email, password } = req.body;
 
 	const response = await UserService.login(email, password);
-
-	if (response.error) {
-		const { code, error } = response;
-		return res.status(code).json({ error });
-	}
-
 	const { token, id, username, avatar_url } = response;
 
 	res.cookie("token", token, {
@@ -35,23 +22,18 @@ async function login(req, res) {
 	});
 }
 
-function logout(_req, res) {
+async function logout(_req, res) {
 	res.clearCookie("token", { httpOnly: true, secure: false });
 	res.status(200).json({ message: "Usuário deslogado com sucesso" });
 }
 
-function getInfo(req, res) {
+async function getInfo(req, res) {
 	const data = req.token;
 
-	const response = UserService.getInfo(data?.user?.id);
-
-	if (response.error) {
-		const { code, error } = response;
-		return res.status(code).json({ error });
-	}
+	const response = await UserService.getInfo(data?.user?.id);
 
 	res.status(200).json({
-		message: "Usuário logado com sucesso",
+		message: "Informações do usuário carregadas com sucesso",
 		user: response,
 	});
 }

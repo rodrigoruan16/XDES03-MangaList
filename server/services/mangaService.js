@@ -1,6 +1,7 @@
 const MangaModel = require("../models/mangaModel");
 
 const statusCode = require("../helpers/statusCode");
+const { throwError } = require("../helpers/throwError");
 
 const getFavorites = async (user_id) => {
 	const userFavorites = await MangaModel.getFavorites(user_id);
@@ -9,7 +10,7 @@ const getFavorites = async (user_id) => {
 	);
 
 	const favoritesWithComments = userFavorites.map((favorite) => {
-		favorite["comments"] = comments.filter((comment) => favorite.manga_id == comment.manga_id);
+		favorite["comments"] = comments.filter((comment) => favorite.manga_id === comment.manga_id);
 		return favorite;
 	});
 
@@ -20,9 +21,9 @@ const setFavorite = async (user_id, manga_id) => {
 	const userFavorites = await MangaModel.getFavorites(user_id);
 
 	const alreadyFavorite = userFavorites.find(
-		(favorite) => favorite.user_id == user_id && favorite.manga_id == manga_id
+		(favorite) => favorite.user_id === user_id && favorite.manga_id === manga_id
 	);
-	if (alreadyFavorite) return { code: statusCode.CONFLICT, error: "Mangá já favoritado" };
+	if (alreadyFavorite) throwError(statusCode.CONFLICT, "Mangá já favoritado");
 
 	return await MangaModel.setFavorite(user_id, manga_id);
 };

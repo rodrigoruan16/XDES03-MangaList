@@ -26,13 +26,13 @@ async function create(username, email, password) {
 
 async function findByEmail(email) {
 	const data = JSON.parse(await fs.readFile(DB_PATH, "utf-8"));
-	const user = data.find((user) => user.email == email);
+	const user = data.find((user) => user.email === email);
 	return user;
 }
 
 async function findById(id) {
 	const data = JSON.parse(await fs.readFile(DB_PATH, "utf-8"));
-	const user = data.find((user) => user.id == id);
+	const user = data.find((user) => user.id === id);
 	return user;
 }
 

@@ -6,6 +6,7 @@ require("dotenv").config({ path: `${__dirname}/.env` }); // Permite acesso ao .e
 const app = express();
 
 const PORT = process.env.PORT || 5000;
+const CLIENT_PORT = process.env.CLIENT_PORT || 5001;
 
 const UserController = require("./controllers/userController");
 const MangaController = require("./controllers/mangaController");
@@ -16,16 +17,10 @@ app.use(express.json()); // Permite receber dados no formato JSON nas requisiç�
 app.use(cookieParser()); // Permite ler token
 app.use(
 	cors({
-		origin: `http://localhost:${process.env.CLIENT_PORT}`,
+		origin: `http://localhost:${CLIENT_PORT}`,
 		credentials: true,
 	})
 ); // Permite requisições do client-side
-
-// Verificação se o servidor está no ar
-app.get("/", (_req, res) => res.send("Hello World!"));
-app.listen(PORT, () => {
-	console.log(`Server-side rodando na porta: ${PORT}`);
-});
 
 // Rotas de usuário
 app.post("/user/create", UserController.create);
@@ -43,4 +38,8 @@ app.post("/manga/comment", AuthMiddleware, MangaController.addComment);
 app.delete("/manga/comment", AuthMiddleware, MangaController.removeComment);
 app.put("/manga/comment", AuthMiddleware, MangaController.editComment);
 
-app.use(errorHandler);
+// Verificação se o servidor está no ar
+app.get("/", (_req, res) => res.send("Hello World!"));
+app.listen(PORT, () => console.log(`Server-side rodando na porta: ${PORT}`));
+
+app.use(errorHandler); // Para tratamento de erros global
