@@ -6,10 +6,32 @@ const MANGA_ENDPOINT = {
 	COMMENT: "http://localhost:3001/manga/comment",
 };
 
+const removeMangaFromFavorite = async (manga_id) => {
+	return await axios({
+		method: "DELETE",
+		url: MANGA_ENDPOINT.FAVORITE_MANGAS,
+		data: {
+			manga_id,
+		},
+		withCredentials: true,
+	});
+};
+
+const addMangaToFavorite = async (manga_id) => {
+	return await axios({
+		url: "http://localhost:3001/manga/favorite",
+		method: "POST",
+		data: {
+			manga_id,
+		},
+		withCredentials: true,
+	});
+};
+
 const deleteMangaComment = async (comment_id) => {
 	return await axios({
 		method: "DELETE",
-		url: "http://localhost:3001/manga/comment",
+		url: MANGA_ENDPOINT.COMMENT,
 		data: {
 			comment_id,
 		},
@@ -32,7 +54,7 @@ const updateMangaComment = async (comment_id, comment) => {
 const addMangaComment = async (manga_id, comment) => {
 	return await axios({
 		method: "POST",
-		url: "http://localhost:3001/manga/comment",
+		url: MANGA_ENDPOINT.COMMENT,
 		data: {
 			manga_id,
 			comment,
@@ -54,7 +76,7 @@ const getFavoritesMangadex = async (favorites) => {
 const getFavoriteMangas = async () => {
 	return await axios({
 		method: "GET",
-		url: "http://localhost:3001/manga/favorite",
+		url: MANGA_ENDPOINT.FAVORITE_MANGAS,
 		withCredentials: true,
 	});
 };
@@ -82,4 +104,13 @@ const getMangas = async (mangaName, page) => {
 	}
 };
 
-export { getMangas, getFavoriteMangas, getFavoritesMangadex, addMangaComment, updateMangaComment, deleteMangaComment };
+export {
+	getMangas,
+	getFavoriteMangas,
+	getFavoritesMangadex,
+	addMangaComment,
+	updateMangaComment,
+	deleteMangaComment,
+	addMangaToFavorite,
+	removeMangaFromFavorite,
+};

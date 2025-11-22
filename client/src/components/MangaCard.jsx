@@ -1,7 +1,7 @@
 import React from "react";
-import axios from "axios";
 import "../css/MangaCard.css";
 import { useNavigate } from "react-router";
+import { addMangaToFavorite, removeMangaFromFavorite } from "../services/mangaService";
 
 function capitalize(word) {
 	if (!word) return "";
@@ -13,21 +13,11 @@ function MangaCard({ attributes }) {
 	const [favorited, setFavorited] = React.useState(false);
 
 	async function addToFavorites() {
-		if (!sessionStorage.getItem("user_logged")) {
-			return navigate("/login");
-		}
-
+		if (!sessionStorage.getItem("user_logged")) return navigate("/login");
 		if (favorited) return;
 
 		try {
-			await axios({
-				url: "http://localhost:3001/manga/favorite",
-				method: "POST",
-				data: {
-					manga_id: attributes.id,
-				},
-				withCredentials: true,
-			});
+			await addMangaToFavorite(attributes.id);
 		} catch (err) {
 			const UNAUTHORIZED_STATUS = 401;
 			if (err.status == UNAUTHORIZED_STATUS) {
@@ -40,19 +30,9 @@ function MangaCard({ attributes }) {
 	}
 
 	async function removeFavorite() {
-		try {
-			await axios({
-				method: "DELETE",
-				url: "http://localhost:3001/manga/favorite",
-				data: {
-					manga_id: attributes.id,
-				},
-				withCredentials: true,
-			});
-
-			const { favorites, setFavorites } = attributes;
-			setFavorites(favorites.filter((favorite) => favorite.id != attributes.id));
-		} catch (err) {}
+		await removeMangaFromFavorite();
+		const { favorites, setFavorites } = attributes;
+		setFavorites(favorites.filter((favorite) => favorite.id != attributes.id));
 	}
 
 	return (
