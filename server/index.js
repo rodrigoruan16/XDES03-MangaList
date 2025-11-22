@@ -10,6 +10,7 @@ const PORT = process.env.PORT || 5000;
 const UserController = require("./controllers/userController");
 const MangaController = require("./controllers/mangaController");
 const { AuthMiddleware } = require("./middlewares/authMiddleware");
+const { errorHandler } = require("./middlewares/errorHandler");
 
 app.use(express.json()); // Permite receber dados no formato JSON nas requisições
 app.use(cookieParser()); // Permite ler token
@@ -21,10 +22,7 @@ app.use(
 ); // Permite requisições do client-side
 
 // Verificação se o servidor está no ar
-app.get("/", (_req, res) => {
-	res.send("Hello World!");
-});
-
+app.get("/", (_req, res) => res.send("Hello World!"));
 app.listen(PORT, () => {
 	console.log(`Server-side rodando na porta: ${PORT}`);
 });
@@ -44,3 +42,5 @@ app.delete("/manga/favorite", AuthMiddleware, MangaController.removeFavorite);
 app.post("/manga/comment", AuthMiddleware, MangaController.addComment);
 app.delete("/manga/comment", AuthMiddleware, MangaController.removeComment);
 app.put("/manga/comment", AuthMiddleware, MangaController.editComment);
+
+app.use(errorHandler);

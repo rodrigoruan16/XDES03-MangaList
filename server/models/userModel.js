@@ -1,11 +1,11 @@
-const fs = require("fs");
+const fs = require("fs").promises;
 const path = require("path");
 const { randomUUID } = require("crypto");
 
 const DB_PATH = path.join(__dirname, "../database/users-db.json");
 
-function create(username, email, password) {
-	const data = JSON.parse(fs.readFileSync(DB_PATH, "utf-8"));
+async function create(username, email, password) {
+	const data = JSON.parse(await fs.readFile(DB_PATH, "utf-8"));
 
 	const newUser = {
 		id: randomUUID(),
@@ -19,19 +19,19 @@ function create(username, email, password) {
 	};
 
 	data.push(newUser);
-	fs.writeFileSync(DB_PATH, JSON.stringify(data));
+	await fs.writeFile(DB_PATH, JSON.stringify(data));
 
 	return newUser;
 }
 
-function findByEmail(email) {
-	const data = JSON.parse(fs.readFileSync(DB_PATH, "utf-8"));
+async function findByEmail(email) {
+	const data = JSON.parse(await fs.readFile(DB_PATH, "utf-8"));
 	const user = data.find((user) => user.email == email);
 	return user;
 }
 
-function findById(id) {
-	const data = JSON.parse(fs.readFileSync(DB_PATH, "utf-8"));
+async function findById(id) {
+	const data = JSON.parse(await fs.readFile(DB_PATH, "utf-8"));
 	const user = data.find((user) => user.id == id);
 	return user;
 }

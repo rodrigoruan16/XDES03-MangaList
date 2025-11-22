@@ -26,9 +26,9 @@ async function setFavorite(user_id, manga_id) {
 	return favoritedObject;
 }
 
-async function getComments(mangas_id) {
+async function getComments(manga_ids) {
 	const data = JSON.parse(await fs.readFile(DB_COMMENTS_PATH, "utf-8"));
-	const filteredData = data.filter((comment) => mangas_id.includes(comment.manga_id));
+	const filteredData = data.filter((comment) => manga_ids.includes(comment.manga_id));
 	return filteredData;
 }
 
@@ -71,6 +71,7 @@ async function editComment(user_id, comment_id, new_comment) {
 	const modifiedData = data.map((comment) => {
 		if (comment_id == comment.id && comment.user_id == user_id) {
 			comment["comment"] = new_comment;
+			comment["updated_at"] = new Date().toISOString();
 		}
 
 		return comment;

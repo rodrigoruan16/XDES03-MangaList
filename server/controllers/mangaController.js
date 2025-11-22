@@ -3,12 +3,7 @@ const MangaService = require("../services/mangaService.js");
 async function getFavorites(req, res) {
 	const data = req.token;
 
-	const response = await MangaService.getFavorites(data?.user?.id);
-
-	if (response.error) {
-		const { code, error } = response;
-		return res.status(code).json({ error });
-	}
+	await MangaService.getFavorites(data?.user?.id);
 
 	res.status(200).json({
 		user_id: data.user.id,
@@ -78,7 +73,11 @@ async function editComment(req, res) {
 
 	console.log(req.body);
 
-	const response = await MangaService.editComment(data?.user?.id, req.body?.comment_id, req.body?.comment);
+	const response = await MangaService.editComment(
+		data?.user?.id,
+		req.body?.comment_id,
+		req.body?.comment
+	);
 
 	res.status(200).json({
 		message: "Comentário editado com sucesso.",
@@ -86,4 +85,11 @@ async function editComment(req, res) {
 	});
 }
 
-module.exports = { setFavorite, getFavorites, addComment, removeComment, removeFavorite, editComment };
+module.exports = {
+	setFavorite,
+	getFavorites,
+	addComment,
+	removeComment,
+	removeFavorite,
+	editComment,
+};

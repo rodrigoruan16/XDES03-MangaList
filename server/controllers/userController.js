@@ -1,9 +1,9 @@
 const UserService = require("../services/userService.js");
 
-function create(req, res) {
+async function create(req, res) {
 	const { email, username, password } = req.body;
 
-	const response = UserService.create(username, email, password);
+	const response = await UserService.create(username, email, password);
 
 	if (response.error) {
 		const { code, error } = response;
@@ -13,10 +13,10 @@ function create(req, res) {
 	res.status(200).json({ message: "Usuário criado com sucesso." });
 }
 
-function login(req, res) {
+async function login(req, res) {
 	const { email, password } = req.body;
 
-	const response = UserService.login(email, password);
+	const response = await UserService.login(email, password);
 
 	if (response.error) {
 		const { code, error } = response;
