@@ -73,4 +73,17 @@ async function removeFavorite(req, res) {
 	});
 }
 
-module.exports = { setFavorite, getFavorites, addComment, removeComment, removeFavorite };
+async function editComment(req, res) {
+	const data = req.token;
+
+	console.log(req.body);
+
+	const response = await MangaService.editComment(data?.user?.id, req.body?.comment_id, req.body?.comment);
+
+	res.status(200).json({
+		message: "Comentário editado com sucesso.",
+		data: response,
+	});
+}
+
+module.exports = { setFavorite, getFavorites, addComment, removeComment, removeFavorite, editComment };

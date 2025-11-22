@@ -3,8 +3,6 @@ import { BrowserRouter, Routes, Route } from "react-router";
 
 import "./css/App.css";
 
-import Header from "./components/Header";
-
 import Mangas from "./pages/Mangas";
 import Login from "./pages/Login";
 import Register from "./pages/Register";

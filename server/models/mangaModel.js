@@ -66,6 +66,19 @@ async function removeFavorite(user_id, manga_id) {
 	await fs.writeFile(DB_FAVORITES_PATH, JSON.stringify(filteredData));
 }
 
+async function editComment(user_id, comment_id, new_comment) {
+	const data = JSON.parse(await fs.readFile(DB_COMMENTS_PATH, "utf-8"));
+	const modifiedData = data.map((comment) => {
+		if (comment_id == comment.id && comment.user_id == user_id) {
+			comment["comment"] = new_comment;
+		}
+
+		return comment;
+	});
+
+	await fs.writeFile(DB_COMMENTS_PATH, JSON.stringify(modifiedData));
+}
+
 module.exports = {
 	setFavorite,
 	getFavorites,
@@ -73,4 +86,5 @@ module.exports = {
 	getComments,
 	removeComment,
 	removeFavorite,
+	editComment,
 };

@@ -43,3 +43,4 @@ app.delete("/manga/favorite", AuthMiddleware, MangaController.removeFavorite);
 // 2º Comentários
 app.post("/manga/comment", AuthMiddleware, MangaController.addComment);
 app.delete("/manga/comment", AuthMiddleware, MangaController.removeComment);
+app.put("/manga/comment", AuthMiddleware, MangaController.editComment);

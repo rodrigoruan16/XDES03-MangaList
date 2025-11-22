@@ -41,10 +41,15 @@ const removeFavorite = async (user_id, manga_id) => {
 	await MangaModel.removeFavorite(user_id, manga_id);
 };
 
+const editComment = async (user_id, comment_id, new_comment) => {
+	await MangaModel.editComment(user_id, comment_id, new_comment);
+};
+
 module.exports = {
 	setFavorite,
 	getFavorites,
 	addComment,
 	removeComment,
 	removeFavorite,
+	editComment,
 };

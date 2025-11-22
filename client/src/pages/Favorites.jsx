@@ -11,6 +11,7 @@ function Favorites() {
 	const [userId, setUserId] = React.useState(null);
 	const [favorites, setFavorites] = React.useState([]);
 	const [comments, setComments] = React.useState({});
+	const [editMode, setEditMode] = React.useState({});
 
 	async function getFavorites() {
 		try {
@@ -66,6 +67,27 @@ function Favorites() {
 			comments[id] = "";
 
 			getFavorites();
+		} catch (err) {
+			console.log(err);
+		}
+	}
+
+	async function updateComment(id) {
+		if (!comments[id]) return;
+
+		try {
+			await axios({
+				method: "PUT",
+				url: "http://localhost:3001/manga/comment",
+				data: {
+					comment_id: id,
+					comment: comments[id],
+				},
+				withCredentials: true,
+			});
+
+			getFavorites();
+			setEditMode({ ...editMode, [id]: false });
 		} catch (err) {
 			console.log(err);
 		}
@@ -137,7 +159,19 @@ function Favorites() {
 
 												{user_id == userId && (
 													<div className="edit-comment-container">
-														<button className="edit-comment-button">Editar</button>
+														<button
+															onClick={() =>
+																!editMode[id]
+																	? setEditMode({
+																			...editMode,
+																			[id]: true,
+																	  })
+																	: updateComment(id)
+															}
+															className="edit-comment-button"
+														>
+															{editMode[id] ? "Salvar" : "Editar"}
+														</button>
 														<button
 															onClick={() => removeComment(id)}
 															className="remove-comment-button"
@@ -147,9 +181,17 @@ function Favorites() {
 													</div>
 												)}
 											</div>
-											<p className="comment" key={id}>
-												{comment}
-											</p>
+											{editMode[id] ? (
+												<input
+													onChange={(e) => setComments({ ...comments, [id]: e.target.value })}
+													className="comment-input"
+													defaultValue={comment}
+												/>
+											) : (
+												<p className="comment" key={id}>
+													{comment}
+												</p>
+											)}
 										</div>
 									))}
 								</div>

@@ -76,12 +76,19 @@
 	margin-left: 5px;
 }
 
-.comment {
+.comment,
+.comment-input {
 	padding: 8px;
 	margin-bottom: 10px;
 	border: 1px solid white;
 	border-radius: 4px;
 	word-break: break-word;
+	width: 100%;
+}
+
+.comment-input {
+	padding: 10px;
+	border: 2px solid #ad39e7e2;
 }
 
 .comment-info {
