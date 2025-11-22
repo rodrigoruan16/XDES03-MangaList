@@ -1,37 +1,24 @@
 import React from "react";
-import axios from "axios";
 import Header from "../components/Header";
 import MangaCard from "../components/MangaCard";
 import "../css/Mangas.css";
+import { getMangas } from "../services/mangaService";
 
 function Home() {
 	const [mangas, setMangas] = React.useState([]);
 	const [page, setPage] = React.useState(0);
 	const [loading, setLoading] = React.useState(false);
-	const [animeName, setAnimeName] = React.useState("");
+	const [mangaName, setMangaName] = React.useState("");
 
-	function buscaAnime() {
+	function buscaMangas() {
 		setLoading(true);
-		axios({
-			method: "GET",
-			url: `https://api.mangadex.org/manga?includes[]=cover_art`,
-			params: {
-				title: animeName,
-				limit: 20,
-				offset: page * 20,
-				order: {
-					rating: "desc",
-					followedCount: "desc",
-				},
-			},
-		})
-			.then((res) => setMangas(res?.data?.data))
-			.catch((err) => console.log(err))
+		getMangas(mangaName, page)
+			.then((data) => setMangas(data))
 			.finally(() => setLoading(false));
 	}
 
 	React.useEffect(() => {
-		buscaAnime();
+		buscaMangas();
 	}, [page]);
 
 	return (
@@ -44,10 +31,10 @@ function Home() {
 							id="search-anime-bar"
 							type="text"
 							placeholder="Pesquisar"
-							onChange={(e) => setAnimeName(e.target.value)}
-							onKeyDown={(e) => e.key === "Enter" && buscaAnime()}
+							onChange={(e) => setMangaName(e.target.value)}
+							onKeyDown={(e) => e.key === "Enter" && buscaMangas()}
 						/>
-						<button onClick={buscaAnime}>
+						<button onClick={buscaMangas}>
 							<img src="https://img.icons8.com/?size=100&id=e4NkZ7kWAD7f&format=png&color=ffffff" />
 						</button>
 					</div>
@@ -59,9 +46,7 @@ function Home() {
 								const { attributes, relationships, id, type } = manga;
 								const cover = relationships.find(({ type }) => type === "cover_art")?.attributes
 									?.fileName;
-
 								const mangaData = { ...attributes, id, type, relationships, cover };
-
 								return <MangaCard key={id} attributes={mangaData} />;
 							})
 						)}

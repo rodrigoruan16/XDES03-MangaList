@@ -1,10 +1,15 @@
 import React from "react";
-import axios from "axios";
 import Header from "../components/Header";
 import { useNavigate } from "react-router";
 import "../css/Favorites.css";
-
 import MangaCard from "../components/MangaCard";
+import {
+	addMangaComment,
+	deleteMangaComment,
+	getFavoriteMangas,
+	getFavoritesMangadex,
+	updateMangaComment,
+} from "../services/mangaService";
 
 function Favorites() {
 	const navigate = useNavigate();
@@ -12,27 +17,16 @@ function Favorites() {
 	const [favorites, setFavorites] = React.useState([]);
 	const [comments, setComments] = React.useState({});
 	const [editMode, setEditMode] = React.useState({});
+	const [loading, setLoading] = React.useState(false);
 
 	async function getFavorites() {
+		setLoading(true);
 		try {
-			const favorited_mangas = await axios({
-				method: "GET",
-				url: "http://localhost:3001/manga/favorite",
-				withCredentials: true,
-			});
+			const favorited_mangas = await getFavoriteMangas();
 			const favorite_ids = favorited_mangas?.data?.favorites;
-			if (favorite_ids?.length == 0) {
-				return;
-			}
+			if (favorite_ids?.length == 0) return;
 
-			let favorites_url = "https://api.mangadex.org/manga?includes[]=cover_art";
-			favorite_ids.forEach((favorite) => (favorites_url += `&ids[]=${favorite.manga_id}`));
-
-			const favoritesFetched = await axios({
-				method: "GET",
-				url: favorites_url,
-			});
-
+			const favoritesFetched = await getFavoritesMangadex(favorite_ids);
 			const favoritesWithComments = favoritesFetched?.data?.data.map((favorite) => {
 				favorite["comments"] = favorite_ids.find(({ manga_id }) => favorite.id == manga_id)?.comments || [];
 				return favorite;
@@ -44,70 +38,35 @@ function Favorites() {
 			if (err.status == UNAUTHORIZED_STATUS) {
 				return navigate("/login");
 			}
+		} finally {
+			setLoading(false);
 		}
 	}
 
 	async function addComment(e, id) {
 		e.preventDefault();
-
 		if (!comments[id]) return;
 
-		try {
-			await axios({
-				method: "POST",
-				url: "http://localhost:3001/manga/comment",
-				data: {
-					manga_id: id,
-					comment: comments[id],
-				},
-				withCredentials: true,
-			});
+		await addMangaComment(id, comments[id]);
 
-			e.target[0].value = "";
-			comments[id] = "";
+		e.target[0].value = "";
+		comments[id] = "";
 
-			getFavorites();
-		} catch (err) {
-			console.log(err);
-		}
+		getFavorites();
 	}
 
 	async function updateComment(id) {
 		if (!comments[id]) return;
 
-		try {
-			await axios({
-				method: "PUT",
-				url: "http://localhost:3001/manga/comment",
-				data: {
-					comment_id: id,
-					comment: comments[id],
-				},
-				withCredentials: true,
-			});
+		await updateMangaComment(id, comments[id]);
 
-			getFavorites();
-			setEditMode({ ...editMode, [id]: false });
-		} catch (err) {
-			console.log(err);
-		}
+		getFavorites();
+		setEditMode({ ...editMode, [id]: false });
 	}
 
 	async function removeComment(comment_id) {
-		try {
-			await axios({
-				method: "DELETE",
-				url: "http://localhost:3001/manga/comment",
-				data: {
-					comment_id,
-				},
-				withCredentials: true,
-			});
-
-			getFavorites();
-		} catch (err) {
-			console.log(err);
-		}
+		await deleteMangaComment(comment_id);
+		getFavorites();
 	}
 
 	React.useEffect(() => {
@@ -122,10 +81,12 @@ function Favorites() {
 		<>
 			<Header />
 			<div className="favorites-container">
+				<p className="favorite-message">
+					{loading ? "Carregando..." : favorites.length == 0 && "Nenhum favorito encontrado"}
+				</p>
 				{favorites.map((manga) => {
 					const { attributes, relationships, id, type } = manga;
 					const cover = relationships.find(({ type }) => type === "cover_art")?.attributes?.fileName;
-
 					const mangaData = {
 						...attributes,
 						id,
@@ -136,7 +97,6 @@ function Favorites() {
 						setFavorites,
 						favorites,
 					};
-
 					return (
 						<div key={id} className="manga-card-container">
 							<MangaCard attributes={mangaData} />
@@ -150,13 +110,11 @@ function Favorites() {
 							</form>
 							<section className="comments-section">
 								<h3>Comentários</h3>
-
 								<div className="comments-container">
 									{manga?.comments.map(({ id, user_id, email, comment }) => (
 										<div key={id}>
 											<div className="comment-info">
 												<p>{email}</p>
-
 												{user_id == userId && (
 													<div className="edit-comment-container">
 														<button

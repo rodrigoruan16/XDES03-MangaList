@@ -91,6 +91,11 @@
 	border: 2px solid #ad39e7e2;
 }
 
+.favorite-message {
+	text-align: center;
+	font-weight: bold;
+}
+
 .comment-info {
 	display: flex;
 	justify-content: space-between;
