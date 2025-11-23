@@ -1,5 +1,14 @@
 #!/bin/bash
 
+# Pergunta ao usuário se deseja continuar
+read -p "LEIA ATENTAMENTE: Deseja realmente iniciar o servidor e *MATAR PROCESSOS* nas portas 3000 e 3001? (Y/N): " confirm
+
+# Verifica se a resposta é Y ou y
+if [[ "$confirm" != "Y" && "$confirm" != "y" ]]; then
+  echo "Operação cancelada."
+  exit 1
+fi
+
 echo "Killing processes on ports 3000 and 3001..."
 
 # Kill port 3000
