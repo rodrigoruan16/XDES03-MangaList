@@ -120,10 +120,7 @@ function Favorites() {
 														<button
 															onClick={() =>
 																!editMode[id]
-																	? setEditMode({
-																			...editMode,
-																			[id]: true,
-																	  })
+																	? setEditMode({ ...editMode, [id]: true })
 																	: updateComment(id)
 															}
 															className="edit-comment-button"
