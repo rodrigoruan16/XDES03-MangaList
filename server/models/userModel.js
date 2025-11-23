@@ -20,8 +20,6 @@ async function create(username, email, password) {
 
 	data.push(newUser);
 	await fs.writeFile(DB_PATH, JSON.stringify(data));
-
-	return newUser;
 }
 
 async function findByEmail(email) {

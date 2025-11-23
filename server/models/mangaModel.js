@@ -53,9 +53,7 @@ async function addComment(user_id, email, manga_id, comment) {
 
 async function removeComment(user_id, comment_id) {
 	const data = JSON.parse(await fs.readFile(DB_COMMENTS_PATH, "utf-8"));
-	const filteredData = data.filter(
-		(comment) => !(comment_id === comment.id && comment.user_id === user_id)
-	);
+	const filteredData = data.filter((comment) => !(comment_id === comment.id && comment.user_id === user_id));
 	await fs.writeFile(DB_COMMENTS_PATH, JSON.stringify(filteredData));
 }
 
@@ -63,9 +61,7 @@ async function removeFavorite(user_id, manga_id) {
 	const raw = await fs.readFile(DB_FAVORITES_PATH, "utf-8");
 	const data = JSON.parse(raw);
 
-	const filteredData = data.filter(
-		(favorite) => !(favorite.manga_id === manga_id && favorite.user_id === user_id)
-	);
+	const filteredData = data.filter((favorite) => !(favorite.manga_id === manga_id && favorite.user_id === user_id));
 
 	await fs.writeFile(DB_FAVORITES_PATH, JSON.stringify(filteredData));
 }

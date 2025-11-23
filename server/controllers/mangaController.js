@@ -1,3 +1,4 @@
+const statusCode = require("../helpers/statusCode.js");
 const MangaService = require("../services/mangaService.js");
 
 async function getFavorites(req, res) {
@@ -5,7 +6,7 @@ async function getFavorites(req, res) {
 
 	const response = await MangaService.getFavorites(data?.user?.id);
 
-	res.status(200).json({
+	res.status(statusCode.OK).json({
 		user_id: data.user.id,
 		favorites: response,
 	});
@@ -16,7 +17,7 @@ async function setFavorite(req, res) {
 
 	const response = await MangaService.setFavorite(data?.user?.id, req.body?.manga_id);
 
-	res.status(200).json({
+	res.status(statusCode.OK).json({
 		message: "Mangá favoritado com sucesso.",
 		data: response,
 	});
@@ -32,7 +33,7 @@ async function addComment(req, res) {
 		req.body?.comment
 	);
 
-	res.status(200).json({
+	res.status(statusCode.OK).json({
 		message: "Comentário adicionado com sucesso.",
 		data: response,
 	});
@@ -43,7 +44,7 @@ async function removeComment(req, res) {
 
 	await MangaService.removeComment(data?.user?.id, req.body?.comment_id);
 
-	res.status(200).json({
+	res.status(statusCode.OK).json({
 		message: "Comentário removido com sucesso.",
 	});
 }
@@ -53,7 +54,7 @@ async function removeFavorite(req, res) {
 
 	await MangaService.removeFavorite(data?.user?.id, req.body?.manga_id);
 
-	res.status(200).json({
+	res.status(statusCode.OK).json({
 		message: "Manga removido dos favoritos com sucesso.",
 	});
 }
@@ -61,13 +62,9 @@ async function removeFavorite(req, res) {
 async function editComment(req, res) {
 	const data = req.token;
 
-	const response = await MangaService.editComment(
-		data?.user?.id,
-		req.body?.comment_id,
-		req.body?.comment
-	);
+	const response = await MangaService.editComment(data?.user?.id, req.body?.comment_id, req.body?.comment);
 
-	res.status(200).json({
+	res.status(statusCode.OK).json({
 		message: "Comentário editado com sucesso.",
 		data: response,
 	});

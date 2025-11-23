@@ -15,7 +15,7 @@ async function create(username, email, password) {
 	const salt = await bcrypt.genSalt(10);
 	const hashedPassword = await bcrypt.hash(password, salt);
 
-	return await UserModel.create(username, email, hashedPassword);
+	await UserModel.create(username, email, hashedPassword);
 }
 
 async function login(email, password) {
