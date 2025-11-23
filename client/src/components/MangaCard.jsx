@@ -30,7 +30,7 @@ function MangaCard({ attributes }) {
 	}
 
 	async function removeFavorite() {
-		await removeMangaFromFavorite();
+		await removeMangaFromFavorite(attributes.id);
 		const { favorites, setFavorites } = attributes;
 		setFavorites(favorites.filter((favorite) => favorite.id != attributes.id));
 	}

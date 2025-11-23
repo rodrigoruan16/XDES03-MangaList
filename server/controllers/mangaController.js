@@ -1,4 +1,5 @@
 const statusCode = require("../helpers/statusCode.js");
+const { FavoriteSchema, AddCommentSchema, RemoveCommentSchema, EditCommentSchema } = require("../schema/MangaSchemas.js");
 const MangaService = require("../services/mangaService.js");
 
 async function getFavorites(req, res) {
@@ -13,6 +14,8 @@ async function getFavorites(req, res) {
 }
 
 async function setFavorite(req, res) {
+	await FavoriteSchema.validate(req.body);
+
 	const data = req.token;
 
 	const response = await MangaService.setFavorite(data?.user?.id, req.body?.manga_id);
@@ -24,6 +27,8 @@ async function setFavorite(req, res) {
 }
 
 async function addComment(req, res) {
+	await AddCommentSchema.validate(req.body);
+
 	const data = req.token;
 
 	const response = await MangaService.addComment(
@@ -40,6 +45,8 @@ async function addComment(req, res) {
 }
 
 async function removeComment(req, res) {
+	await RemoveCommentSchema.validate(req.body);
+
 	const data = req.token;
 
 	await MangaService.removeComment(data?.user?.id, req.body?.comment_id);
@@ -50,6 +57,8 @@ async function removeComment(req, res) {
 }
 
 async function removeFavorite(req, res) {
+	await FavoriteSchema.validate(req.body);
+
 	const data = req.token;
 
 	await MangaService.removeFavorite(data?.user?.id, req.body?.manga_id);
@@ -60,6 +69,8 @@ async function removeFavorite(req, res) {
 }
 
 async function editComment(req, res) {
+	await EditCommentSchema.validate(req.body);
+
 	const data = req.token;
 
 	const response = await MangaService.editComment(data?.user?.id, req.body?.comment_id, req.body?.comment);

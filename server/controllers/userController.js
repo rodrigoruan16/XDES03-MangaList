@@ -1,7 +1,9 @@
 const statusCode = require("../helpers/statusCode.js");
 const UserService = require("../services/userService.js");
+const { LoginSchema, RegisterSchema } = require("../schema/UserSchemas.js")
 
 async function create(req, res) {
+	await RegisterSchema.validate(req.body);
 	const { email, username, password } = req.body;
 	await UserService.create(username, email, password);
 	res.status(statusCode.OK).json({
@@ -10,6 +12,7 @@ async function create(req, res) {
 }
 
 async function login(req, res) {
+	await LoginSchema.validate(req.body);
 	const { email, password } = req.body;
 
 	const response = await UserService.login(email, password);
