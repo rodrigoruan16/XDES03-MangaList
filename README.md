@@ -5,13 +5,13 @@ Neste projeto foi realizado o desenvolvimento de uma aplicação web fullstack d
 O sistema permite que usuários criem contas, façam login, salvem mangás como favoritos, adicionem comentários e interajam com dados reais obtidos da **API pública da Mangadex**.
 
 #### Tela de Login
-![alt text](./img/login.png)
+![Tela de login](./img/login.png)
 
 #### Tela de Mangás
-![alt text](./img/mangas.png)
+![Tela de Mangás](./img/mangas.png)
 
 #### Tela de Favoritos
-![alt text](image.png)
+![Tela de favoritos](./img/favoritos.png)
 ---
 
 ## ⚙️ Funcionalidades Principais
