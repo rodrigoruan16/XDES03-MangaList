@@ -1,1 +1,62 @@
-[{"user_id":"7eabbb0a-a2bb-4171-b88e-91a6dae9add2","manga_id":"801513ba-a712-498c-8f57-cae55b38cc92","favorited_at":"2025-11-22T04:53:51.265Z"},{"user_id":"7eabbb0a-a2bb-4171-b88e-91a6dae9add2","manga_id":"1044287a-73df-48d0-b0b2-5327f32dd651","favorited_at":"2025-11-22T04:57:05.586Z"},{"user_id":"7eabbb0a-a2bb-4171-b88e-91a6dae9add2","manga_id":"d1a9fdeb-f713-407f-960c-8326b586e6fd","favorited_at":"2025-11-22T04:57:06.376Z"},{"user_id":"7eabbb0a-a2bb-4171-b88e-91a6dae9add2","manga_id":"8b8102da-c875-4dae-a79c-c62e817ff3f5","favorited_at":"2025-11-22T04:57:07.177Z"},{"user_id":"7eabbb0a-a2bb-4171-b88e-91a6dae9add2","manga_id":"d7f56ace-cd30-48b9-8b64-afeca0077fca","favorited_at":"2025-11-22T04:57:08.958Z"},{"user_id":"7eabbb0a-a2bb-4171-b88e-91a6dae9add2","manga_id":"0d4b349e-b7a2-4d63-9ce0-f864e790c4a2","favorited_at":"2025-11-22T05:01:15.195Z"},{"user_id":"b886ca19-a1d0-4b71-b4db-a25d72ac9fd6","manga_id":"801513ba-a712-498c-8f57-cae55b38cc92","favorited_at":"2025-11-23T19:24:29.682Z"},{"user_id":"b886ca19-a1d0-4b71-b4db-a25d72ac9fd6","manga_id":"1044287a-73df-48d0-b0b2-5327f32dd651","favorited_at":"2025-11-23T19:24:31.857Z"}]
+[
+	{
+		"user_id": "7eabbb0a-a2bb-4171-b88e-91a6dae9add2",
+		"manga_id": "801513ba-a712-498c-8f57-cae55b38cc92",
+		"favorited_at": "2025-11-22T04:53:51.265Z"
+	},
+	{
+		"user_id": "7eabbb0a-a2bb-4171-b88e-91a6dae9add2",
+		"manga_id": "1044287a-73df-48d0-b0b2-5327f32dd651",
+		"favorited_at": "2025-11-22T04:57:05.586Z"
+	},
+	{
+		"user_id": "7eabbb0a-a2bb-4171-b88e-91a6dae9add2",
+		"manga_id": "d1a9fdeb-f713-407f-960c-8326b586e6fd",
+		"favorited_at": "2025-11-22T04:57:06.376Z"
+	},
+	{
+		"user_id": "7eabbb0a-a2bb-4171-b88e-91a6dae9add2",
+		"manga_id": "8b8102da-c875-4dae-a79c-c62e817ff3f5",
+		"favorited_at": "2025-11-22T04:57:07.177Z"
+	},
+	{
+		"user_id": "7eabbb0a-a2bb-4171-b88e-91a6dae9add2",
+		"manga_id": "d7f56ace-cd30-48b9-8b64-afeca0077fca",
+		"favorited_at": "2025-11-22T04:57:08.958Z"
+	},
+	{
+		"user_id": "7eabbb0a-a2bb-4171-b88e-91a6dae9add2",
+		"manga_id": "0d4b349e-b7a2-4d63-9ce0-f864e790c4a2",
+		"favorited_at": "2025-11-22T05:01:15.195Z"
+	},
+	{
+		"user_id": "b886ca19-a1d0-4b71-b4db-a25d72ac9fd6",
+		"manga_id": "801513ba-a712-498c-8f57-cae55b38cc92",
+		"favorited_at": "2025-11-23T19:24:29.682Z"
+	},
+	{
+		"user_id": "b886ca19-a1d0-4b71-b4db-a25d72ac9fd6",
+		"manga_id": "1044287a-73df-48d0-b0b2-5327f32dd651",
+		"favorited_at": "2025-11-23T19:24:31.857Z"
+	},
+	{
+		"user_id": "becf0dd6-1fc2-4bfc-b39d-2b82627b37ce",
+		"manga_id": "801513ba-a712-498c-8f57-cae55b38cc92",
+		"favorited_at": "2025-11-23T23:06:57.547Z"
+	},
+	{
+		"user_id": "becf0dd6-1fc2-4bfc-b39d-2b82627b37ce",
+		"manga_id": "1044287a-73df-48d0-b0b2-5327f32dd651",
+		"favorited_at": "2025-11-23T23:06:58.575Z"
+	},
+	{
+		"user_id": "becf0dd6-1fc2-4bfc-b39d-2b82627b37ce",
+		"manga_id": "d1a9fdeb-f713-407f-960c-8326b586e6fd",
+		"favorited_at": "2025-11-23T23:07:00.028Z"
+	},
+	{
+		"user_id": "becf0dd6-1fc2-4bfc-b39d-2b82627b37ce",
+		"manga_id": "d7f56ace-cd30-48b9-8b64-afeca0077fca",
+		"favorited_at": "2025-11-23T23:07:01.491Z"
+	}
+]

@@ -1,1 +1,29 @@
-[{"id":"31651bb9-feb6-421d-b754-407d25fa27a1","user_id":"7eabbb0a-a2bb-4171-b88e-91a6dae9add2","manga_id":"8b8102da-c875-4dae-a79c-c62e817ff3f5","comment":"T","email":"rodrigo@gmail.com","created_at":"2025-11-22T05:01:38.394Z","updated_at":"2025-11-22T05:01:38.395Z"}]
+[
+	{
+		"id": "31651bb9-feb6-421d-b754-407d25fa27a1",
+		"user_id": "7eabbb0a-a2bb-4171-b88e-91a6dae9add2",
+		"manga_id": "8b8102da-c875-4dae-a79c-c62e817ff3f5",
+		"comment": "T",
+		"email": "rodrigo@gmail.com",
+		"created_at": "2025-11-22T05:01:38.394Z",
+		"updated_at": "2025-11-22T05:01:38.395Z"
+	},
+	{
+		"id": "3b3d9970-f8f1-4f59-a6a6-8315d64eb967",
+		"user_id": "becf0dd6-1fc2-4bfc-b39d-2b82627b37ce",
+		"manga_id": "d1a9fdeb-f713-407f-960c-8326b586e6fd",
+		"comment": "Mangá muito bom! Adorei! 10/10",
+		"email": "diogo@gmail.com",
+		"created_at": "2025-11-23T23:07:15.307Z",
+		"updated_at": "2025-11-23T23:07:15.307Z"
+	},
+	{
+		"id": "7ddaea2b-d3fe-427e-a78f-3fe9407430ac",
+		"user_id": "becf0dd6-1fc2-4bfc-b39d-2b82627b37ce",
+		"manga_id": "d1a9fdeb-f713-407f-960c-8326b586e6fd",
+		"comment": "Baseado na história de um dos maiores samurais que já existiram: Miyamoto Musashi. Muito bacana!",
+		"email": "diogo@gmail.com",
+		"created_at": "2025-11-23T23:07:51.954Z",
+		"updated_at": "2025-11-23T23:07:51.954Z"
+	}
+]

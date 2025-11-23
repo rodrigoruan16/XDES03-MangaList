@@ -18,9 +18,9 @@ powershell.exe -Command "Stop-Process -Id (Get-NetTCPConnection -LocalPort 3000)
 powershell.exe -Command "Stop-Process -Id (Get-NetTCPConnection -LocalPort 3001).OwningProcess -Force" 2>/dev/null
 
 echo "Starting backend..."
-(cd server && npm start) &
+(cd server && npm install && npm start) &
 
 echo "Starting frontend..."
-(cd client && npm start) &
+(cd client && npm install && npm start) &
 
 wait
