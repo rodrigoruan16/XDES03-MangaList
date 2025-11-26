@@ -1,4 +1,4 @@
-# AnimeList – Aplicação Web Fullstack (React e Node + Express)
+# MangaList – Aplicação Web Fullstack (React e Node + Express)
 
 Neste projeto foi realizado o desenvolvimento de uma aplicação web fullstack desenvolvida para a disciplina **XDES03 – Programação Web** da Universidade Federal de Itajubá (UNIFEI).
 
@@ -12,6 +12,7 @@ O sistema permite que usuários criem contas, façam login, salvem mangás como 
 
 #### Tela de Favoritos
 ![Tela de favoritos](./img/favoritos.png)
+
 ---
 
 ## ⚙️ Funcionalidades Principais
@@ -75,7 +76,7 @@ Integração com a **Mangadex API** para:
 1° Clone o repositório a partir de seu terminal:
 
 ```bash
-  git clone git@github.com:rodrigoruan16/XDES03-AnimeList.git
+  git clone git@github.com:rodrigoruan16/XDES03-MangaList.git
 ```
 
 2° Acesse a pasta server e renomeie o arquivo '.dev.env' para '.env', e, se desejado, altere suas configurações.
