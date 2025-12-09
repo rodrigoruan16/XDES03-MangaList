@@ -19,7 +19,7 @@ const removeMangaFromFavorite = async (manga_id) => {
 
 const addMangaToFavorite = async (manga_id) => {
 	return await axios({
-		url: "http://localhost:3001/manga/favorite",
+		url: MANGA_ENDPOINT.FAVORITE_MANGAS,
 		method: "POST",
 		data: {
 			manga_id,
