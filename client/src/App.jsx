@@ -12,7 +12,7 @@ import Profile from "./pages/Profile";
 const App = () => (
 	<BrowserRouter>
 		<Routes>
-			<Route path="/" element={<Mangas />} />
+			<Route path="*" element={<Mangas />} />
 			<Route path="/login" element={<Login />} />
 			<Route path="/register" element={<Register />} />
 			<Route path="/favorites" element={<Favorites />} />
