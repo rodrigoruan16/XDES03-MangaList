@@ -91,7 +91,7 @@ Integração com a **Mangadex API** para:
 ```bash
   cd server && npm i && npm run dev
 ```
-Em outro terminal, execute para instalar as dependências e rodar o client:
+Em outro terminal, na pasta raíz, execute para instalar as dependências e rodar o client:
 ```bash
   cd client && npm i && npm start
 ```
