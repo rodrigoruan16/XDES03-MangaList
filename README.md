@@ -67,7 +67,7 @@ Integração com a **Mangadex API** para:
 -   Componentização
 -   Estados e efeitos
 -   Protected Routes
--   Formulários validados com **Yup + React Hook Form**
+-   Formulários validados com **Yup**
 
 ---
 
@@ -81,10 +81,19 @@ Integração com a **Mangadex API** para:
 
 2° Acesse a pasta server e renomeie o arquivo '.dev.env' para '.env', e, se desejado, altere suas configurações.
 
-3º Vá para a pasta raíz e execute para instalar as dependências e rodar tanto o server quanto o client:
+3º (Windows) Vá para a pasta raíz e execute para instalar as dependências e rodar tanto o server quanto o client:
 
 ```bash
   ./start.sh
+```
+
+3º (Linux) Vá para a pasta raíz e execute para instalar as dependências e rodar o server:
+```bash
+  cd server && npm i && npm run dev
+```
+Em outro terminal, na pasta raíz, execute para instalar as dependências e rodar o client:
+```bash
+  cd client && npm i && npm start
 ```
 
 <h2>🛠️ Bibliotecas / Linguagens</h2>
